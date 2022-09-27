@@ -9,6 +9,8 @@ let tasksCompleted = document.getElementById('completed-tasks')
 
 
 //event listeners
+//DOM load event
+document.addEventListener('DOMContentLoaded', getTodos)
 form.addEventListener('submit', addTodo)
 list.addEventListener('click', completedTodo)
 document.getElementById('completed-btn').addEventListener('click', completeT)
@@ -18,6 +20,7 @@ function addTodo(e) {
     let text = todoInput.value
     if (text === "") {
         createAlert('Text cannot be empty', 'red')
+        return
     }
 
     //create li
@@ -38,27 +41,37 @@ function addTodo(e) {
     li.appendChild(link)
     list.appendChild(li)
 
+    storeTodoInLocalStorage(todoInput.value)
+
     // clear text input
     todoInput.value = ""
 }
 
 
 function createAlert(msg, color) {
-    let div = document.createElement('div')
-    div.className = 'alerts'
-    div.appendChild(document.createTextNode(msg))
+    let msgDiv = document.createElement('div')
+    msgDiv.className = 'alert'
+    msgDiv.appendChild(document.createTextNode(msg))
     //div.innerHTML = msg
-    div.style.backgroundColor = color
+    msgDiv.style.backgroundColor = color
     // add div to the dom
     let container = document.querySelector('.container')
-    container.insertBefore(div, form)
+    let heading = document.querySelector('.heading')
+
+    //insert alert after heading
+    container.insertBefore(msgDiv, heading)
 }
 
-setTimeout(function () {
-    const alert = document.querySelector('div.alerts')
-    console.log('alert', alert)
-    alert.remove()
-}, 3000)
+// setTimeout(function () {
+//      document.querySelector('.alert').remove()
+// }, 3000)
+
+setTimeout(clearAlert, 7000)
+
+function clearAlert() {
+    document.querySelector('.alert').remove()
+
+}
 
 
 //
@@ -67,20 +80,107 @@ function completedTodo(e) {
     console.log('e', e.target)
     if (e.target.className === 'todo-collection') {
         e.target.classList.add('completed')
-    }
 
+        if (e.target.className === 'todo-collection completed') {
+            document.getElementById('completed-btn').style.display = 'block'
+        } else {
+            document.getElementById('completed-btn').style.display = 'none'
+        }
+    }
 
 }
 
+// function completeT() {
+//     let newTaskList = Array.from(list.children)
+//     let completedTasks = newTaskList.filter(item => {
+//         console.log('item', item)
+//         return item.classList.contains('completed')
+
+//     })
+
+//     let numberOfCompletedTasks = completedTasks.length
+
+//     tasksCompleted.innerHTML = `<p class ="completed-task">Number of tasks completed is ${numberOfCompletedTasks}</p>`
+
+
+// }
+
 function completeT() {
-    let newT = Array.from(list.children)
-    let completedTasks = newT.filter(item => {
+    let newTaskList = Array.from(list.children)
+    let completedTasks = newTaskList.filter(item => {
         console.log('item', item)
         return item.classList.contains('completed')
 
     })
 
     let numberOfCompletedTasks = completedTasks.length
-    tasksCompleted.innerHTML = `<p>Number of tasks completed is ${numberOfCompletedTasks}</p>`
+    let completed = document.createElement('p')
+    completed.className = 'completed-task'
+    completed.innerText = `Number of tasks completed is ${numberOfCompletedTasks}`
+    tasksCompleted.appendChild(completed)
+
+}
+
+
+// setTimeout(function () {
+//     document.querySelector(".completed-task").remove()
+// }, 3000)
+
+
+setTimeout(clearCompletedTasks, 7000)
+
+function clearCompletedTasks() {
+    document.querySelector('.completed-task').remove()
+
+}
+
+//store todo in local storage
+
+function storeTodoInLocalStorage(todo) {
+    let todos;
+    //check locaal storage if there is any todo in there
+    if (localStorage.getItem('todos') === null) {
+        todos = []
+
+    } else {
+        todos = JSON.parse(localStorage.getItem('todos'))
+    }
+    todos.push(todo)
+
+    localStorage.setItem('todos', JSON.stringify(todos))
+}
+
+
+//get todoss from local storage
+
+function getTodos() {
+    let todos;
+    //check locaal storage if there is any task in ther
+    if (localStorage.getItem('todos') === null) {
+        todos = []
+
+    } else {
+        todos = JSON.parse(localStorage.getItem('todos'))
+    }
+    todos.forEach(todo => {
+        let li = document.createElement('li')
+        li.className = 'todo-collection'
+        //createtext node and append to li
+        li.appendChild(document.createTextNode(todo))
+        //li.innerHTML = text
+
+        //create new link elemet
+        const link = document.createElement('a')
+        link.className = 'delete-item secondary-content'
+
+        //add icon html
+        link.innerHTML = '<i class= "fa fa-remove"></i>'
+
+        //append link to li
+        li.appendChild(link)
+        list.appendChild(li)
+
+
+    })
 
 }

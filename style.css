@@ -45,12 +45,13 @@ h1 {
   margin-bottom: 0.5rem;
 }
 
-.alerts {
+.alert {
   padding: 0.5rem;
   margin: 0 auto;
   text-align: center;
   font-size: 1.2rem;
   margin-bottom: 1rem;
+  color: #fff;
 }
 
 .fa-remove {
@@ -71,4 +72,12 @@ ul {
 
 .completed {
   border: 2px solid green;
+}
+
+.completed-task {
+  color: green;
+}
+
+#completed-btn {
+  display: none;
 }
