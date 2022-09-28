@@ -4,7 +4,6 @@
 let form = document.querySelector('form')
 let todoInput = document.getElementById('todo')
 let list = document.getElementById('list')
-console.log('list', list)
 let tasksCompleted = document.getElementById('completed-tasks')
 
 
@@ -13,6 +12,8 @@ let tasksCompleted = document.getElementById('completed-tasks')
 document.addEventListener('DOMContentLoaded', getTodos)
 form.addEventListener('submit', addTodo)
 list.addEventListener('click', completedTodo)
+// list.addEventListener('click', markTodoAsNotComplete)
+list.addEventListener('click', deleteTodo)
 document.getElementById('completed-btn').addEventListener('click', completeT)
 
 function addTodo(e) {
@@ -35,7 +36,7 @@ function addTodo(e) {
     link.className = 'delete-item secondary-content'
 
     //add icon html
-    link.innerHTML = '<i class= "fa fa-remove"></i>'
+    link.innerHTML = '<i class= "fa fa-remove"></i> '
 
     //append link to li
     li.appendChild(link)
@@ -74,7 +75,7 @@ function clearAlert() {
 }
 
 
-//
+//mark todo as complete
 
 function completedTodo(e) {
     console.log('e', e.target)
@@ -90,6 +91,25 @@ function completedTodo(e) {
 
 }
 
+
+// mark too as not complete
+// function markTodoAsNotComplete(e) {
+//     if (e.target.className === 'todo-collection completed') {
+//         e.target.classList.remove('completed')
+//         e.target.classList.toggle('not-completed')
+
+
+//         // console.log('notC', notCompleted)
+//         console.log('not completed')
+
+//     }
+
+// }
+
+
+
+
+
 // function completeT() {
 //     let newTaskList = Array.from(list.children)
 //     let completedTasks = newTaskList.filter(item => {
@@ -104,7 +124,7 @@ function completedTodo(e) {
 
 
 // }
-
+// set todo as complete
 function completeT() {
     let newTaskList = Array.from(list.children)
     let completedTasks = newTaskList.filter(item => {
@@ -122,9 +142,7 @@ function completeT() {
 }
 
 
-// setTimeout(function () {
-//     document.querySelector(".completed-task").remove()
-// }, 3000)
+
 
 
 setTimeout(clearCompletedTasks, 7000)
@@ -133,6 +151,18 @@ function clearCompletedTasks() {
     document.querySelector('.completed-task').remove()
 
 }
+
+// delete todos
+
+function deleteTodo(e) {
+    if (e.target.classList.contains('fa-remove')) {
+        e.target.parentElement.parentElement.remove()
+        createAlert('Todo removed', 'red')
+
+    }
+
+}
+
 
 //store todo in local storage
 
