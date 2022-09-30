@@ -58,30 +58,40 @@ h1 {
   color: #fff;
 }
 
-.fa-remove {
+.fa-trash {
   margin-left: 0.5rem;
-  color: red;
+  color: #fff;
+  padding: 0.2rem;
 }
 
 ul {
   list-style-type: none;
   margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  width: 50%;
 }
 .todo-collection {
   border: 1px solid grey;
-  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px #9191916b;
+  margin-bottom: 0.2rem;
   padding: 0.4rem;
   font-size: 1.3rem;
-  display: flex;
-  justify-content: space-between;
+  color: #fff;
+  width: 100%;
 }
 
 li.completed {
   border: 2px solid green;
+  text-decoration: line-through;
 }
 
 .completed-task {
-  color: green;
+  color: #fff;
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
 }
 
 #completed-btn {
@@ -97,5 +107,9 @@ li.completed {
 }
 
 .complete-btn {
-  margin: 0 1rem;
+  margin: 0.5rem;
+  background-color: green;
+  color: #fff;
+  padding: 0.2rem;
+  border-radius: 5px;
 }

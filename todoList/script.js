@@ -7,12 +7,11 @@ let list = document.getElementById('list')
 let tasksCompleted = document.getElementById('completed-tasks')
 
 
+
 //event listeners
-//DOM load event
 document.addEventListener('DOMContentLoaded', getTodos)
 form.addEventListener('submit', addTodo)
 list.addEventListener('click', completedTodo)
-// list.addEventListener('click', markTodoAsNotComplete)
 list.addEventListener('click', deleteTodo)
 document.getElementById('completed-btn').addEventListener('click', completeT)
 
@@ -35,7 +34,8 @@ function addTodo(e) {
     link.className = 'delete-item secondary-content'
 
     //add icon html
-    link.innerHTML = '<i class= "fa fa-remove"></i> '
+    //link.innerHTML = '<i class= "fa fa-remove"></i> '
+    link.innerHTML = '<i class="fa-solid fa-trash"></i>'
 
     // create completed button
     const completedButton = document.createElement('button')
@@ -84,28 +84,11 @@ function clearAlert() {
 
 //mark todo as complete
 
-// function completedTodo(e) {
-//     console.log('e', e.target)
-//     if (e.target.className === 'todo-collection') {
-//         e.target.classList.add('completed')
-
-//         if (e.target.className === 'todo-collection completed') {
-//             document.getElementById('completed-btn').style.display = 'block'
-//         } else {
-//             document.getElementById('completed-btn').style.display = 'none'
-//         }
-//     }
-
-// }
-
-//mark todo as complete
-
 function completedTodo(e) {
     console.log('e', e.target)
     console.log('parent', e.target.parentElement.parentElement)
     if (e.target.classList.contains('fa-check')) {
         e.target.parentElement.parentElement.classList.toggle('completed')
-
 
         if (e.target.parentElement.parentElement.className === 'todo-collection completed') {
             document.getElementById('completed-btn').style.display = 'block'
@@ -117,22 +100,9 @@ function completedTodo(e) {
 }
 
 
-// mark too as not complete
-// function markTodoAsNotComplete(e) {
-//     if (e.target.className === 'todo-collection completed') {
-//         e.target.classList.remove('completed')
-//         e.target.classList.toggle('not-completed')
 
 
-//         // console.log('notC', notCompleted)
-//         console.log('not completed')
-
-//     }
-
-// }
-
-
-// set todo as complete
+// counT number of completed todos
 function completeT() {
     let newTaskList = Array.from(list.children)
     let completedTasks = newTaskList.filter(item => {
@@ -142,6 +112,7 @@ function completeT() {
     })
 
     let numberOfCompletedTasks = completedTasks.length
+
     let completed = document.createElement('p')
     completed.className = 'completed-task'
     completed.innerText = `Number of tasks completed is ${numberOfCompletedTasks}`
@@ -160,7 +131,7 @@ function clearCompletedTasks() {
 // delete todos
 
 function deleteTodo(e) {
-    if (e.target.classList.contains('fa-remove')) {
+    if (e.target.classList.contains('fa-trash')) {
         e.target.parentElement.parentElement.remove()
         createAlert('Todo removed', 'red')
 
@@ -210,7 +181,7 @@ function getTodos() {
         link.className = 'delete-item secondary-content'
 
         //add icon html
-        link.innerHTML = '<i class= "fa fa-remove"></i>'
+        link.innerHTML = '<i class="fa-solid fa-trash"></i>'
 
         // create completed button
         const completedButton = document.createElement('button')
