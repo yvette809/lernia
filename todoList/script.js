@@ -28,8 +28,7 @@ function addTodo(e) {
     let li = document.createElement('li')
     li.className = 'todo-collection'
     //createtext node and append to li
-    li.appendChild(document.createTextNode(text))
-    //li.innerHTML = text
+    li.innerText = text
 
     //create new link elemet
     const link = document.createElement('a')
@@ -38,8 +37,16 @@ function addTodo(e) {
     //add icon html
     link.innerHTML = '<i class= "fa fa-remove"></i> '
 
+    // create completed button
+    const completedButton = document.createElement('button')
+    completedButton.innerHTML = `<i class ="fas fa-check"></i>`
+    completedButton.classList.add("complete-btn")
+    li.appendChild(completedButton)
+
+
     //append link to li
     li.appendChild(link)
+
     list.appendChild(li)
 
     storeTodoInLocalStorage(todoInput.value)
@@ -77,12 +84,30 @@ function clearAlert() {
 
 //mark todo as complete
 
+// function completedTodo(e) {
+//     console.log('e', e.target)
+//     if (e.target.className === 'todo-collection') {
+//         e.target.classList.add('completed')
+
+//         if (e.target.className === 'todo-collection completed') {
+//             document.getElementById('completed-btn').style.display = 'block'
+//         } else {
+//             document.getElementById('completed-btn').style.display = 'none'
+//         }
+//     }
+
+// }
+
+//mark todo as complete
+
 function completedTodo(e) {
     console.log('e', e.target)
-    if (e.target.className === 'todo-collection') {
-        e.target.classList.add('completed')
+    console.log('parent', e.target.parentElement.parentElement)
+    if (e.target.classList.contains('fa-check')) {
+        e.target.parentElement.parentElement.classList.toggle('completed')
 
-        if (e.target.className === 'todo-collection completed') {
+
+        if (e.target.parentElement.parentElement.className === 'todo-collection completed') {
             document.getElementById('completed-btn').style.display = 'block'
         } else {
             document.getElementById('completed-btn').style.display = 'none'
@@ -107,23 +132,6 @@ function completedTodo(e) {
 // }
 
 
-
-
-
-// function completeT() {
-//     let newTaskList = Array.from(list.children)
-//     let completedTasks = newTaskList.filter(item => {
-//         console.log('item', item)
-//         return item.classList.contains('completed')
-
-//     })
-
-//     let numberOfCompletedTasks = completedTasks.length
-
-//     tasksCompleted.innerHTML = `<p class ="completed-task">Number of tasks completed is ${numberOfCompletedTasks}</p>`
-
-
-// }
 // set todo as complete
 function completeT() {
     let newTaskList = Array.from(list.children)
@@ -142,9 +150,6 @@ function completeT() {
 }
 
 
-
-
-
 setTimeout(clearCompletedTasks, 7000)
 
 function clearCompletedTasks() {
@@ -160,6 +165,7 @@ function deleteTodo(e) {
         createAlert('Todo removed', 'red')
 
     }
+
 
 }
 
@@ -205,6 +211,12 @@ function getTodos() {
 
         //add icon html
         link.innerHTML = '<i class= "fa fa-remove"></i>'
+
+        // create completed button
+        const completedButton = document.createElement('button')
+        completedButton.innerHTML = `<i class ="fas fa-check"></i>`
+        completedButton.classList.add("complete-btn")
+        li.appendChild(completedButton)
 
         //append link to li
         li.appendChild(link)

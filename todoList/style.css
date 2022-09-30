@@ -76,7 +76,7 @@ ul {
   justify-content: space-between;
 }
 
-.completed {
+li.completed {
   border: 2px solid green;
 }
 
@@ -94,4 +94,8 @@ ul {
 
 .not-completed {
   background-color: red;
+}
+
+.complete-btn {
+  margin: 0 1rem;
 }
