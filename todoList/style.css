@@ -67,10 +67,6 @@ h1 {
 ul {
   list-style-type: none;
   margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-
-  width: 50%;
 }
 .todo-collection {
   border: 1px solid grey;
@@ -80,7 +76,7 @@ ul {
   padding: 0.4rem;
   font-size: 1.3rem;
   color: #fff;
-  width: 100%;
+  
 }
 
 li.completed {

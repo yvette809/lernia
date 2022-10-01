@@ -57,6 +57,7 @@ function addTodo(e) {
 
 
 function createAlert(msg, color) {
+
     let msgDiv = document.createElement('div')
     msgDiv.className = 'alert'
     msgDiv.appendChild(document.createTextNode(msg))
@@ -68,16 +69,17 @@ function createAlert(msg, color) {
 
     //insert alert after heading
     container.insertBefore(msgDiv, heading)
+
+    // time out alert afte 3s
+    setTimeout(clearAlert, 3000)
 }
 
-// setTimeout(function () {
-//      document.querySelector('.alert').remove()
-// }, 3000)
-
-setTimeout(clearAlert, 7000)
-
 function clearAlert() {
-    document.querySelector('.alert').remove()
+    const currentAlert = document.querySelector('.alert')
+    if (currentAlert) {
+        currentAlert.remove()
+    }
+
 
 }
 
@@ -100,8 +102,6 @@ function completedTodo(e) {
 }
 
 
-
-
 // counT number of completed todos
 function completeT() {
     let newTaskList = Array.from(list.children)
@@ -118,10 +118,11 @@ function completeT() {
     completed.innerText = `Number of tasks completed is ${numberOfCompletedTasks}`
     tasksCompleted.appendChild(completed)
 
+    // clear the alert 
+    setTimeout(clearCompletedTasks, 3000)
+
+
 }
-
-
-setTimeout(clearCompletedTasks, 7000)
 
 function clearCompletedTasks() {
     document.querySelector('.completed-task').remove()
