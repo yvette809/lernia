@@ -1,0 +1,142 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: blueviolet;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+  padding: 2rem 0;
+  margin: 2rem auto;
+  background-color: #fff;
+  /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+  /* animation: dropdown 3s forwards; */
+  animation: dropdown 0.9s ease-out;
+  animation-fill-mode: backwards;
+  animation-delay: 0.1s;
+}
+
+@keyframes dropdown {
+  0% {
+    opacity: 0;
+    transform: translateY(0%);
+  }
+
+  25% {
+    opacity: 1;
+    transform: translateY(4rem);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.number_completed {
+  margin: 0.8rem;
+}
+
+.form-control {
+  display: flex;
+}
+
+.form-control button {
+  margin-left: 0.2rem;
+  padding: 0.5rem;
+}
+input[type="text"] {
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+
+.error {
+  color: red;
+  text-align: center;
+  animation: blink 1.2s linear;
+}
+
+
+@keyframes blink {
+    0% {
+      opacity: 0
+    }
+  
+    20% {
+      opacity: 1
+    }
+  
+    40% {
+      opacity: 0
+    }
+  
+    60% {
+      opacity: 1
+    }
+  
+    80% {
+      opacity: 0
+    }
+  
+    100% {
+      opacity: 1
+    }
+  }
+
+ul.list-items {
+  list-style-type: none;
+  margin-top: 0.8rem;
+}
+
+ul.list-items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  border: 1px solid grey;
+  padding: 0.5rem;
+  font-size: 1rem;
+  animation: swing 1s forwards;
+}
+
+@keyframes swing{
+    0%{
+        transform: translateY(20px);
+    }
+    100%{
+        transform: translateY(-5px);
+    }
+}
+
+ul.list-items li span {
+  margin-right: 2rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.completed {
+  text-decoration: line-through;
+  border: 1px solid green;
+  animation: fadeIn 0.5s ease-in;
+  animation-fill-mode: forwards;
+}
+/* .fa-trash {
+  color: red;
+  margin-left: 1rem;
+} */
