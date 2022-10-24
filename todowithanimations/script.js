@@ -14,12 +14,14 @@ todoList.addEventListener('click', toggleCompleted)
 
 //functions
 function addTodo(e) {
+    error.classList.remove('active')
     e.preventDefault()
     let todo = todoInput.value
     if (todo === "") {
-        errorAlert()
-        //error.innerText = "Todo cannot be empty"
-        // createAlert('todo canot be empty')
+
+        setTimeout(() => {
+            error.classList.add('active')
+        }, 20)
         return
     }
     let todoEl = document.createElement('li')
@@ -47,12 +49,6 @@ function addTodo(e) {
 }
 
 
-function errorAlert() {
-    error.innerText = "Input cannot be empty"
-    setTimeout(function () {
-        error.remove()
-    }, 3000)
-}
 
 function removeTodo(e) {
     if (e.target.classList.contains('fa-trash')) {
@@ -65,7 +61,6 @@ function removeTodo(e) {
 function toggleCompleted(e) {
     if (e.target.classList.contains('fa-check')) {
         e.target.parentElement.parentElement.classList.toggle('completed')
-        console.log('completed', e.target.parentElement.parentElement)
         updateCompleted()
     }
 }
@@ -76,15 +71,18 @@ function updateCompleted() {
     let completed = 0
     let todoNodeList = Array.from(todoList.children)
     todoNodeList.find(todo => {
-        console.log('todo', todo)
         let completedTodo = todo.classList.contains('completed')
+        console.log('todo', completedTodo)
         if (completedTodo) {
             completed++
             completedTodos.innerText = `${completed} completed`
         } else {
-            return null
+            completed--
+            return
         }
     })
 
 }
+
+
 
