@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap");
+
+:root {
+  --primaryColor: #36769d;
+  --buttonColor: #e3170a;
+  --greyColor: #b6bdb5;
+  --darkColor: #011827;
+  --secondaryColor: #8acfe5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.main-container {
+  min-height: 100vh;
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+nav.navbar {
+  color: #fff;
+}
+a.navbar-brand img {
+  width: 10%;
+}
+
+.nav-container {
+  position: relative;
+  background-color: var(--darkColor);
+}
+
+.navbar-main {
+  width: 100%;
+}
+
+ul.navbar-nav {
+  display: flex;
+  justify-content: space-around;
+  width: 70%;
+  margin: 0 auto;
+}
+
+ul.navbar-nav li a {
+  color: #fff;
+}
+
+ul.navbar-nav li a.active {
+  color: var(--secondaryColor) !important;
+  font-weight: 700;
+}
+
+div img.hero-img {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
