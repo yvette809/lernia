@@ -12,7 +12,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
 }
 
 body {
@@ -20,9 +19,9 @@ body {
 }
 
 .main-container {
-  min-height: 100vh;
-  max-width: 60%;
-  margin: 0 auto;
+  /* max-width: 70%;
+   max-width: 1280px;  
+  margin: 0 auto; */
 }
 
 .sub-container {
@@ -62,17 +61,24 @@ ul.navbar-nav li a.active {
   font-weight: 700;
 }
 
-div img.hero-img {
-  width: 100%;
-  position: absolute;
+.hero-div {
+  position: relative;
+}
+
+img.hero-img {
+  object-fit: cover;
+  overflow: hidden;
+  position: relative;
+  /* position: absolute;
   left: 0;
-  right: 0;
+  right: 0; */
 }
 
 div.action-btn {
   position: absolute;
-  bottom: -15px;
-  transform: translateX(25%);
+  bottom: -20px;
+  margin: auto;
+  transform: translateX(80%);
 }
 
 div.action-btn button,
@@ -96,8 +102,42 @@ div.challenges-btn button:nth-child(2n) {
   color: #fff;
 }
 
-.card {
+.avatar {
+  object-fit: contain;
+}
+.avatar p {
+  font-size: 24px;
+  line-height: 28.1px;
+  font-weight: 400;
+}
+
+.avatar p small {
+  font-size: 18px;
+}
+
+.card.room-info {
   position: relative;
+  border-radius: 8px !important;
+  max-width: 363px;
+}
+
+.room-info div.card-body {
+  padding: 2rem;
+}
+
+h5.card-title {
+  font-size: 28px;
+}
+
+h5.card-title.play {
+  font-size: 32px;
+  font-weight: 700;
+}
+p.participants {
+  font-size: 14px;
+}
+.room-info p {
+  font-size: 18px;
 }
 
 .stars {
@@ -105,20 +145,45 @@ div.challenges-btn button:nth-child(2n) {
 }
 a.book-room {
   position: absolute;
-  bottom: 2px;
+  bottom: 4px;
   right: 5px;
   background-color: var(--buttonColor);
   color: #fff;
 }
 
+p.play-description {
+  font-size: 24px;
+}
+
+.playing-main {
+  margin-bottom: 6rem;
+}
+
+.playing-imgs {
+  transform: translateX(-20px);
+}
+
+.playing-details {
+  /* padding: 4rem; */
+  padding: 4rem 4rem;
+}
+
+.playing-details-2 {
+  padding: 4rem;
+}
+
 div.details,
 .footer {
   background-color: var(--darkColor);
-  padding: 2rem 0;
+}
+
+.details {
+  padding: 5rem;
 }
 
 div.details p {
-  line-height: 33px;
+  line-height: 32.8px;
+  font-size: 28px;
   font-weight: 400;
 }
 
@@ -130,7 +195,23 @@ div.details button {
   border: 2px solid var(--secondaryColor);
 }
 
-.footer-link a, .footer-social a{
+.footer-div h5,
+.footer-div p,
+.footer-social span {
+  font-size: 18px;
+}
+
+.footer-div p {
+  line-height: 21px;
+}
+.footer-div h5,
+.footer-link a:first-child,
+.footer-social span {
+  font-weight: 700;
+}
+.footer-link a,
+.footer-social a {
   color: #fff;
+  font-size: 18px;
   text-decoration: none;
 }
