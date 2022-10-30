@@ -63,6 +63,11 @@ ul.navbar-nav li a.active {
 
 .hero-div {
   position: relative;
+  background-image: url("./images/hero.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 468px;
 }
 
 img.hero-img {
@@ -102,8 +107,13 @@ div.challenges-btn button:nth-child(2n) {
   color: #fff;
 }
 
-.avatar {
-  object-fit: contain;
+.avatar div {
+  max-width: 96px;
+}
+
+.avatar div img {
+  max-width: 90px;
+  margin-right: 3rem;
 }
 .avatar p {
   font-size: 24px;
@@ -214,4 +224,105 @@ div.details button {
   color: #fff;
   font-size: 18px;
   text-decoration: none;
+}
+
+/* media queries */
+
+@media only screen and (max-width: 576px) {
+  .container {
+    max-width: 576px;
+  }
+
+  a.navbar-brand img {
+    width: 100%;
+  }
+
+  .hero-div {
+    background-image: url("./images/hero-small.png");
+    min-height: 274px;
+    background-size: cover;
+  }
+
+  .online-challenges,
+  .challenges-btn button.btn-1 {
+    order: 2;
+    border: transparent;
+    background-color: transparent !important;
+    font-size: 16px;
+    color: var(--secondaryColor);
+  }
+  .on-site-challenges,
+  .challenges-btn button.btn-2 {
+    order: 1;
+  }
+
+  .challenges-btn button.btn-2,
+  .challenges-btn button.btn-1 {
+    margin-top: -1rem !important;
+  }
+
+  div.action-btn,
+  .challenges-btn {
+    /* bottom: -80px;
+    margin: 0  -9rem; */
+    display: flex;
+    flex-direction: column;
+  }
+
+  div.action-btn {
+    bottom: -120px;
+    transform: translateX(15%);
+  }
+
+  .avatar-1 {
+    display: none;
+  }
+
+  .challenges h1 {
+    min-width: 100vw;
+    font-size: 24px;
+  }
+
+  .card.room-info {
+    margin-bottom: 2rem;
+  }
+
+  .details {
+    max-width: 100%;
+    max-height: 500px;
+    padding: 2rem;
+    margin-top: -2rem;
+  }
+
+  .playing {
+    flex-direction: column;
+    width: 100vw;
+    margin-bottom: -6rem;
+  }
+
+  .playing-imgs img {
+    max-width: 480px;
+    max-height: 300px;
+  }
+
+  .playing-details {
+    max-width: 480px;
+    margin-bottom: 4rem;
+  }
+  .play-detail {
+    order: 2;
+  }
+
+  .play-img-2 {
+    order: 1;
+  }
+
+  div.footer {
+    display: flex !important;
+
+    min-height: 480px;
+    height: auto;
+    margin-top: -10rem;
+   
+  }
 }
