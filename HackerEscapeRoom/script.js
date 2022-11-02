@@ -1,2 +1,2 @@
-const button = document.querySelectorAll('.action-btn')
-console.log('parent',button[0].parentElement)
+const button = document.querySelector('.navbar-toggler-icon')
+console.log('parent', button.parentElement)
