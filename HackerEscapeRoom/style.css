@@ -24,10 +24,10 @@ body {
   margin: 0 auto; */
 }
 
-.sub-container {
+/* .sub-container {
   min-height: 55vh;
   position: relative;
-}
+} */
 
 nav.navbar {
   color: #fff;
@@ -68,6 +68,9 @@ ul.navbar-nav li a.active {
   background-position: center;
   background-repeat: no-repeat;
   min-height: 468px;
+  left: 0;
+  right: 0;
+  margin: 0;
 }
 
 img.hero-img {
@@ -118,11 +121,14 @@ div.challenges-btn button:nth-child(2n) {
 .avatar p {
   font-size: 24px;
   line-height: 28.1px;
-  font-weight: 400;
+  font-style: italic;
 }
 
 .avatar p small {
   font-size: 18px;
+}
+.challenges h1 {
+  font-size: 36px;
 }
 
 .card.room-info {
@@ -161,6 +167,30 @@ a.book-room {
   color: #fff;
 }
 
+div.details,
+.footer {
+  background-color: var(--darkColor);
+}
+
+.details {
+  height: 500px;
+}
+
+div.details p {
+  line-height: 33px;
+  font-size: 28px;
+}
+
+div.details button {
+  color: var(--secondaryColor);
+  background-color: var(--darkColor);
+  font-size: 24px;
+  font-weight: 700;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  border: 2px solid var(--secondaryColor);
+}
+
 p.play-description {
   font-size: 24px;
 }
@@ -180,29 +210,6 @@ p.play-description {
 
 .playing-details-2 {
   padding: 4rem;
-}
-
-div.details,
-.footer {
-  background-color: var(--darkColor);
-}
-
-.details {
-  padding: 5rem;
-}
-
-div.details p {
-  line-height: 32.8px;
-  font-size: 28px;
-  font-weight: 400;
-}
-
-div.details button {
-  color: var(--secondaryColor);
-  background-color: var(--darkColor);
-  padding: 0.5rem 1.5rem;
-  border-radius: 4px;
-  border: 2px solid var(--secondaryColor);
 }
 
 .footer-div h5,
@@ -323,6 +330,5 @@ div.details button {
     min-height: 480px;
     height: auto;
     margin-top: -10rem;
-   
   }
 }
