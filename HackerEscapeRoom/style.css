@@ -295,6 +295,7 @@ p.play-description {
   .avatar-1 {
     display: none;
   }
+  
 
   .challenges h1 {
     font-size: 28px;
@@ -302,7 +303,6 @@ p.play-description {
     margin-right: -1.1rem;
   }
 
- 
   .card.room-info {
     margin-bottom: 2rem;
   }
