@@ -1,16 +1,19 @@
 ## Project Name: Hacker Escape Rooms
 
-Description:
+**Description:**
+
 This is a compny that offers meeting place for their collegues and friends for team building exercises
 
-Technologies
-Project is created with
+**Technologies:**
+
+Project is created with:
 
 -Bootstrap 5.2.2
 
 -HTML/Css
 
-Bootstrap Usage:
+**Bootstrap Usage:**
+
 Add the following cd link to the head tag;
   <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -32,10 +35,11 @@ an these two at  the end of the  body tag:
     ></script>
 
 
-Setup
+**Setup:**
+
 To stat this project, right click on the html file and click on "open with live server"
 
-Project structure
+**Project structure:**
 
 - Use of the container class on every section to give it an equal margin on both the left and right sides
 

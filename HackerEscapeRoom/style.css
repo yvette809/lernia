@@ -67,9 +67,6 @@ img.hero-img {
   object-fit: cover;
   overflow: hidden;
   position: relative;
-  /* position: absolute;
-  left: 0;
-  right: 0; */
 }
 
 div.action-btn {
@@ -123,8 +120,9 @@ div.challenges-btn button:nth-child(2n) {
 
 .card.room-info {
   position: relative;
-  border-radius: 8px !important;
+  border-radius: 8px 8px 0px 0px !important;
   max-width: 363px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
 }
 
 .room-info div.card-body {
@@ -151,10 +149,11 @@ p.participants {
 }
 a.book-room {
   position: absolute;
-  bottom: 4px;
-  right: 5px;
+  bottom: 10px;
+  right: 10px;
   background-color: var(--buttonColor);
   color: #fff;
+  font-size: 16px;
 }
 
 div.details,
@@ -162,7 +161,7 @@ div.details,
   background-color: var(--darkColor);
 }
 
-.details {
+div.details {
   height: 500px;
 }
 
@@ -187,19 +186,24 @@ p.play-description {
 
 .playing-main {
   margin-bottom: 6rem;
+  padding: 0;
 }
 
 .playing-imgs {
-  transform: translateX(-20px);
+  max-width: 640px;
+  max-height: 460px;
 }
 
 .playing-details {
-  /* padding: 4rem; */
-  padding: 4rem 4rem;
+  padding: 4rem;
 }
 
 .playing-details-2 {
   padding: 4rem;
+}
+
+.playing-imgs:nth-child(2) {
+  transform: translateX(-18px);
 }
 
 .container.footer {
@@ -251,8 +255,8 @@ p.play-description {
   span.navbar-toggler-icon {
     background-color: #fff;
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 15px;
+    right: 10px;
   }
 
   .hero-div {
@@ -266,7 +270,7 @@ p.play-description {
     order: 2;
     border: transparent;
     background-color: transparent !important;
-    font-size: 16px;
+    font-size: 16px !important;
     color: var(--secondaryColor);
   }
   .on-site-challenges,
@@ -295,7 +299,29 @@ p.play-description {
   .avatar-1 {
     display: none;
   }
-  
+
+  .avatar-2 {
+    margin-top: 4rem;
+    padding: 0;
+  }
+
+  .challenges-row {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  .room-info div.card-body {
+    padding: 0.5rem;
+  }
+
+  .room-info-1 {
+    width: 363px;
+  }
+
+  .room-info-2,
+  .room-info-3 {
+    width: 363px;
+  }
 
   .challenges h1 {
     font-size: 28px;
@@ -307,11 +333,11 @@ p.play-description {
     margin-bottom: 2rem;
   }
 
-  .details {
+  div.container.details {
     max-height: 500px;
+    width: 100vw;
     text-align: center;
-    margin: -2rem 0 0 0;
-    padding: 2rem 0;
+    margin-top: -2rem;
   }
 
   .playing {
@@ -323,6 +349,7 @@ p.play-description {
   .playing-imgs img {
     max-width: 480px;
     max-height: 300px;
+    padding: 0;
   }
 
   .playing-details {
@@ -339,7 +366,7 @@ p.play-description {
     order: 2;
   }
 
-  .play-img-2 {
+  .playing-imgs:nth-child(2) {
     order: 1;
   }
 
