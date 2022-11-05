@@ -35,9 +35,15 @@ an these two at  the end of the  body tag:
     ></script>
 
 
+<<<<<<< HEAD
 **Setup:**
 
 To stat this project, right click on the html file and click on "open with live server"
+=======
+Setup
+
+To start this project, right click on the html file and click on "open with live server"
+>>>>>>> 9eb9ef738a66cacf60708ec336b4fd98b2b01e72
 
 **Project structure:**
 
@@ -45,15 +51,15 @@ To stat this project, right click on the html file and click on "open with live 
 
 - Font-family of Roboto was assigned to the body to make the entire webpage have a uniform outlook
 
-- colors are assigned to variables for esy usability
+- colors are assigned to variables for easy usability
   ex . :root {
   --primaryColor: #36769d;
   }
 
 - Use of bootstrap rows and columns to offer a grid based-layout and display flex to make the elements flexible
 
-- The entie page has a box-sizing property of border-box to prevent the padding to be utomatically added to the width and height o the element. Values of magis and paddings were resetted to 0
+- The entie page has a box-sizing property of border-box to prevent the padding to be automatically added to the width and height of the element. Values of magins and paddings were resetted to 0
 
-- The lements are styled accoding to how they are displayed on the html page t.ex the first tag on the HTML page gets to be styled first and so on.
+- The elements are styled accoding to how they are displayed on the html page t.ex the first tag on the HTML page gets to be styled first and so on.
 
 - Project is responsive to different screen sizes
