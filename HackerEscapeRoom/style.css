@@ -291,6 +291,10 @@ p.play-description {
     font-size: 24px;
   }
 
+  #navbarNav {
+    
+  }
+
   ul.navbar-nav li a.active {
     color: #fff !important;
   }
