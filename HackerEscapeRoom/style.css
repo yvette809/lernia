@@ -34,14 +34,45 @@ a.navbar-brand h1 {
 }
 
 .navbar-main {
-  width: 100%;
+  background-color: var(--darkColor);
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+nav {
+  background-color: var(--darkColor);
+  padding: 1rem;
 }
 
-/* hamburge icon */
+ul.nav-links {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+}
+
+ul.nav-links li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 24px;
+}
+
+ul.nav-links li a.active {
+  color: var(--secondaryColor) !important;
+  font-weight: 700;
+}
+
+
+.nav-menu {
+  display: none;
+}
+
+.fa-xmark {
+  display: none;
+}
 
 #hamburger-icon {
   display: none;
-  margin: auto 0;
+  margin-top: -3rem;
 }
 #hamburger-icon div {
   width: 50px;
@@ -52,7 +83,7 @@ a.navbar-brand h1 {
   transition: 0.4s;
 }
 
-.open .bar1 {
+/* .open .bar1 {
   transform: rotate(-45deg) translate(-6px, 6px);
 }
 
@@ -61,7 +92,7 @@ a.navbar-brand h1 {
 }
 .open .bar3 {
   transform: rotate(45deg) translate(-12px, -9px);
-}
+} */
 
 /* hamburger icon ends */
 
@@ -268,15 +299,78 @@ p.play-description {
     max-width: 576px;
   }
 
-  #hamburger-icon {
-    display: block;
-    position: absolute;
-    top: 15px;
-    right: 10px;
+  .main-container {
+    position: relative;
+    
   }
 
-  .navbarNav {
+  header .navbar-main {
+    z-index: -1;
+  }
+
+  h1.hacker{
+    margin-left: 1rem;
+  }
+
+  .nav-menu {  
+    color: #fff;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    height: 100%;
+    animation: menu-pop-in  0.2s backwards;
+    transition: all 0.2s ease-in;
+  }
+  @keyframes menu-pop-in {
+    from {
+        opacity: 0;
+        
+    }
+
+    to {
+        opacity: 1;
+       
+    }
+}
+ 
+  .fa-xmark {
+    color: #fff;
+    position: absolute;
+    font-size: 50px !important;
+    right: 15px;
+    cursor: pointer;
+  }
+
+  #hamburger-icon {
+    display: block;
+    margin-right: 2rem;
+  }
+  nav.desktop-nav {
     display: none;
+  }
+
+  .nav-menu li a {
+    margin-bottom: 3rem;
+    color: #fff !important;
+  }
+  .nav-mobile-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -5rem;
+    align-items: center;
+    height: 700px;
+  }
+  .nav-mobile-links li {
+    margin-bottom: 2rem;
+  }
+
+  .nav-mobile-links li a {
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: 700;
   }
 
   a.navbar-brand img {
@@ -291,9 +385,9 @@ p.play-description {
     font-size: 24px;
   }
 
-  #navbarNav {
-    
-  }
+  /* .navbarNav ul {
+    height: 1000px;
+  } */
 
   ul.navbar-nav li a.active {
     color: #fff !important;
@@ -303,6 +397,7 @@ p.play-description {
     background-image: url("./images/hero-small.png");
     min-height: 274px;
     background-size: cover;
+    z-index: -1;
   }
 
   .online-challenges,

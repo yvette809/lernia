@@ -2,24 +2,18 @@
 const hamburger = document.querySelector('#hamburger-icon')
 const navMenu = document.querySelector('.nav-menu')
 const closeBtn = document.querySelector('.fa-xmark')
-console.log('nav', navMenu)
-console.log('close', closeBtn)
-
+mainNav = document.querySelector('.navbar-main')
 
 hamburger.addEventListener('click', openMenu)
 closeBtn.addEventListener('click', closeMenu)
 
-function openMenu() {
-    // hamburger.classList.toggle('open')
-    navMenu.classList.add('nav-menu')
-    // closeBtn.style.display = 'block'
-
+function openMenu() {   
+    navMenu.style.display= 'block'
+    mainNav.style.background='#b6bdb5'
 }
 
 function closeMenu() {
-    // hamburger.classList.toggle('open')
-    navMenu.classList.remove('nav-menu')
-    closeBtn.style.display = 'none'
-
+    navMenu.style.display= 'none'
+    mainNav.style.background='#011827'
 }
 
