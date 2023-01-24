@@ -1,2 +1,13 @@
 
-Welcome to my front page!
+
+<ul>
+  {{#each moviesFromApi}}
+    <li>
+      <img src="{{this.attributes.image.url}}" alt="" srcset="" />
+      <a href="/movies/{{this.id}}">{{this.attributes.title}}</a>
+
+    </li>
+
+  {{/each}}
+
+</ul>
