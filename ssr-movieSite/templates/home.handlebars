@@ -1,13 +1,14 @@
+<div class="movies-container">
 
+  <h1 class="heading">Movies</h1>
+  <div class="movies">
+    {{#each moviesFromApi}}
+      <div class="img-div">
+        <img src="{{this.attributes.image.url}}" alt="" srcset="" />
+        <a href="/movies/{{this.id}}">{{this.attributes.title}}</a>
+      </div>
 
-<ul>
-  {{#each moviesFromApi}}
-    <li>
-      <img src="{{this.attributes.image.url}}" alt="" srcset="" />
-      <a href="/movies/{{this.id}}">{{this.attributes.title}}</a>
+    {{/each}}
 
-    </li>
-
-  {{/each}}
-
-</ul>
+  </div>
+</div>
