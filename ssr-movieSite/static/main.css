@@ -344,3 +344,44 @@ body, html {
   border-radius: 5px;
   padding-bottom: 1rem;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+footer {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #3E3737;
+}
+footer .footer-images {
+  display: flex;
+  align-items: center;
+}
+footer .footer-image {
+  width: 20%;
+}
+footer .footer-section3 {
+  width: 40%;
+}
+
+.present-card {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.present-card h1 {
+  text-transform: uppercase;
+}
+.present-card p {
+  font-size: 16px;
+}

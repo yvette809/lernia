@@ -1,0 +1,14 @@
+.present-card {
+  @include container;
+  width: 50%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+  h1 {
+    text-transform: uppercase;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}
