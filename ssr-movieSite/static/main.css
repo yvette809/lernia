@@ -285,7 +285,7 @@ body, html {
   text-align: center;
 }
 .movie .img-container img {
-  width: 100%;
+  width: 80%;
   height: 90%;
   object-fit: cover;
   margin: 1rem auto;
