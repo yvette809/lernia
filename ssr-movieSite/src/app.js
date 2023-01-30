@@ -72,6 +72,11 @@ app.get("/openinghours", (req, res) => {
   res.render("contact");
 });
 
+
 app.use("/static", express.static("./static"));
+
+app.get('*', (req,res)=>{
+  res.render("404", {message: 'Page not found'})
+})
 
 export default app

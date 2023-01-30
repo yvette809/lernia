@@ -1,0 +1,138 @@
+ <header class="header">
+      <a href="/">
+        <img
+          class="header-logo"
+          src="./static/images/biospegeln_100_white.png"
+          alt="Spegeln logo"
+        />
+      </a>
+
+      <ul class="socials-list">
+        <li>
+          <a href="/"><i class="fa-brands fa-facebook"></i></a>
+        </li>
+        <li>
+          <a href="/"><i class="fa-brands fa-instagram"></i></a>
+        </li>
+        <li>
+          <a href="/"><i class="fa-brands fa-twitter"></i></a>
+        </li>
+        <li>
+          <a href="/"><i class="fa-solid fa-envelope"></i></a>
+        </li>
+      </ul>
+    </header>
+    <nav class="main-nav">
+      <button class="toggle-menu"><i class="fa-solid fa-bars"></i></button>
+
+      <menu class="nav-menu">
+        {{#each MENU}}
+          <a href="{{this.link}}">
+            <li>{{this.label}}</li>
+          </a>
+        {{/each}}
+        <li>
+          <a href="/openinghours">Öppettider & Kontakt</a>
+        </li>
+        <li>
+          <a href="/about">Om Spegeln</a>
+        </li>
+        <li>
+          <a href="/ticket-info">Biljettinfo</a>
+        </li>
+        <li>
+          <a href="/newsletter">Vill du ha vårt nyhetsbrev?</a>
+        </li>
+        <li>
+          <a href="/giftcard">Köp presentkort</a>
+        </li>
+
+      </menu>
+    </nav>
+
+    <nav class="sidebar-nav">
+      <ul class="nav-list">
+
+        <li>
+          <button class="dropdown-toggle">REPERTUAR</button>
+
+          <menu class="dropdown-menu">
+            <li>
+              <a href="/">Hela bioprogrammet</a>
+            </li>
+            <li>
+              <a href="/">Kommande premiärer</a>
+            </li>
+            <li>
+              <a href="/">Matinèfilm för 100kr</a>
+            </li>
+          </menu>
+        </li>
+        <li>
+          <button class="dropdown-toggle">SALONGER</button>
+
+          <menu class="dropdown-menu">
+            <li>
+              <a href="/">Salong Alcazar</a>
+            </li>
+          </menu>
+        </li>
+        <li>
+          <button class="dropdown-toggle">SPECIALVISNINGAR</button>
+
+          <menu class="dropdown-menu">
+            <li>
+              <a href="/">Klassiker</a>
+            </li>
+            <li>
+              <a href="/">Fukostbio</a>
+            </li>
+            <li>
+              <a href="/">Cinemateket</a>
+            </li>
+            <li>
+              <a href="/">Galapremiärer</a>
+            </li>
+            <li>
+              <a href="/">Dokumentärer</a>
+            </li>
+          </menu>
+        </li>
+        <li>
+          <button class="dropdown-toggle">LIVE PÅ BIO</button>
+
+          <menu class="dropdown-menu">
+            <li>
+              <a href="/">Hela programmet</a>
+            </li>
+            <li>
+              <a href="/">Opera</a>
+            </li>
+            <li>
+              <a href="/">Teater</a>
+            </li>
+            <li>
+              <a href="/">Konst</a>
+            </li>
+            <li>
+              <a href="/">Konsert</a>
+            </li>
+          </menu>
+        </li>
+        <li>
+          <button class="dropdown-toggle">BAR & BISTRO</button>
+
+          <menu class="dropdown-menu">
+            <li>
+              <a href="/">Meny</a>
+            </li>
+            <li>
+              <a href="/">Premiärfredag</a>
+            </li>
+            <li>
+              <a href="/">Filmquiz</a>
+            </li>
+          </menu>
+        </li>
+      </ul>
+    </nav>
