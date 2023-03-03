@@ -1,0 +1,34 @@
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: beige;
+  padding: 2rem;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group.error input {
+  border-color: red;
+}
+
+.form-group.success input {
+  border-color: green;
+}
+
+.form-group small {
+  color: #e74c3c;
+  position: absolute;
+  bottom: 10;
+  left: 0;
+  visibility: hidden;
+}
+
+.form-group.error small {
+  visibility: visible;
+}
