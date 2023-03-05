@@ -1,12 +1,19 @@
 
+body{
+   background: #bb7870;
+}
+
 form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 50vh;
   background-color: beige;
   padding: 2rem;
+}
+
+.form-group {
+  width: 70%;
 }
 
 .form-group {

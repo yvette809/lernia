@@ -39,6 +39,17 @@ const validateEmail = (email) => {
   return re.test(String(email).toLowerCase());
 };
 
+// Check input length
+function checkLength(password, min, max) {
+  if (password.value.length < min) {
+    showError(password, `password must be at least ${min} characters`);
+  } else if (password.value.length > max) {
+    showError(password, `password must be less than ${max} characters`);
+  } else {
+    showSuccess(password);
+  }
+}
+
 // show Alert
 function showAlert(message, className) {
   const div = document.createElement("div");
@@ -65,8 +76,6 @@ const register = (name, email, password) => {
 
   users.unshift(user);
   showAlert("user added", "success");
-  localStorage.setItem("user", JSON.stringify(user));
-  console.log("users", users);
 };
 
 //login user
@@ -82,6 +91,7 @@ form.addEventListener("submit", (e) => {
 
   if (location.href === "http://127.0.0.1:5501/htmlForms/index.html") {
     checkRequired([name, email, password]);
+    checkLength(password, 6, 25);
     if (
       name.value !== "" &&
       email.value !== "" &&
@@ -96,10 +106,12 @@ form.addEventListener("submit", (e) => {
     }
   } else {
     checkRequired([email, password]);
+
     if (
       email.value !== "" &&
       password.value !== "" &&
-      validateEmail(email.value)
+      validateEmail(email.value) &&
+      checkLength(password, 6, 25)
     ) {
       logIn(email.value, password.value);
       email.value = "";
@@ -107,19 +119,3 @@ form.addEventListener("submit", (e) => {
     }
   }
 });
-
-// get user
-
-function getUser() {
-    if(location.href === 'http://127.0.0.1:5501/htmlForms/home.html'){
-        let user = localStorage.getItem("user");
-        console.log("user", user);
-        let username = document.querySelector(".user");
-        console.log("username", username);
-        username.innerText = `Welcome ${user.name}`;
-    }
- 
-}
-
-console.log("getUser", getUser());
-//window.addEventListener("DOMContentLoaded", getUser);
