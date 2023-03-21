@@ -3,7 +3,8 @@
 let refreshBtn = document.querySelector(".refresh"),
   checkBtn = document.querySelector(".check"),
   secretWord = document.querySelector(".secret-word"),
-  guessInput = document.querySelector(".guessed-word");
+  guessInput = document.querySelector(".guessed-word"),
+  alertMsg = document.querySelector(".msg");
 
 let guessesLeft = 3;
 let wordLength = 5;
@@ -46,11 +47,18 @@ function checkWord() {
     let input = guessInput.value;
     guessInput.borderColor = "red";
 
-    alert("guess is right");
+    setMessage(`Congratulations, you guessed rightly`, "green");
     gameOver = true;
     guessInput.value = "";
   } else {
-    alert("wrong guess");
+
+    guessesLeft -= 1;
+    setMessage(`you have the wrong guess.You have ${guessesLeft} guesses left`, 'red');
     guessInput.value = "";
   }
+}
+
+function setMessage(msg, color) {
+  alertMsg.innerText = msg;
+  alertMsg.style.color = color;
 }
