@@ -1,0 +1,46 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: aqua;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  min-height: 100vh;
+}
+
+.secret-word {
+  margin: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 24px;
+}
+
+input {
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+ 
+}
+
+.buttons button {
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.buttons button.refresh{
+    background-color: rgb(23, 167, 23);
+}
+
+.buttons button.check{
+    background-color: rgb(15, 15, 62);
+}
