@@ -6,15 +6,17 @@
 
 body {
   background-color: aqua;
-}
-
-.container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #fff;
+
   min-height: 100vh;
+}
+
+.container {
+  background: #fff;
+  padding: 4rem;
 }
 
 .secret-word {
@@ -26,12 +28,11 @@ body {
 input {
   padding: 0.8rem;
   margin-bottom: 1rem;
- 
 }
 
-span.msg{
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
+span.msg {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
 }
 
 .buttons button {
@@ -42,10 +43,10 @@ span.msg{
   cursor: pointer;
 }
 
-.buttons button.refresh{
-    background-color: rgb(23, 167, 23);
+.buttons button.refresh {
+  background-color: rgb(23, 167, 23);
 }
 
-.buttons button.check{
-    background-color: rgb(15, 15, 62);
+.buttons button.check {
+  background-color: rgb(15, 15, 62);
 }
