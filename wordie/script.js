@@ -4,8 +4,9 @@ let refreshBtn = document.querySelector(".refresh"),
   checkBtn = document.querySelector(".check"),
   secretWord = document.querySelector(".secret-word"),
   guessInput = document.querySelector(".guessed-word"),
-  alertMsg = document.querySelector(".msg");
-resultSummary = document.querySelector(".result-summary span");
+  alertMsg = document.querySelector(".msg"),
+  resultSummary = document.querySelector(".result-summary span"),
+  gameContainer = document.querySelector(".container");
 
 let guessesLeft = 3;
 let wordLength = 5;
@@ -42,6 +43,13 @@ const getRandomWord = () => {
 refreshBtn.addEventListener("click", getRandomWord);
 checkBtn.addEventListener("click", checkWord);
 
+// play again event listener
+gameContainer.addEventListener("mousedown", function (e) {
+  if (e.target.className === "play-again") {
+    window.location.reload();
+  }
+});
+
 function checkWord() {
   let input = guessInput.value.toLowerCase();
   if (input === "")
@@ -51,10 +59,25 @@ function checkWord() {
     guessInput.disabled = true;
     guessInput.style.borderColor = "green";
 
-    setMessage(`Congratulations, ${correctWord} is correct`, "green");
-   /*  resultSummary.innerText = "";
-    getIncorrectWords(input);
-    resultSummary.innerText = inCorrectWords; */
+    setMessage(
+      `Congratulations,You Won. ${correctWord.toUpperCase()} is correct`,
+      "green"
+    );
+
+    setTimeout(() => {
+      resultSummary.innerText = "All letters are correct";
+      resultSummary.style.color = "green";
+    }, 1000);
+
+    // play again
+
+    checkBtn.innerText = "Play Again";
+    checkBtn.className += "play-again";
+    checkBtn.style.color = "black";
+    checkBtn.style.backgroundColor = "aqua";
+    guessInput.style.borderColor = "none";
+    guessInput.disabled = false;
+    //getRandomWord();
 
     guessInput.value = "";
   } else {
@@ -72,13 +95,12 @@ function checkWord() {
     } else {
       // Game continues, wrong answer
       setMessage(
-        `you have the wrong guess.You have ${guessesLeft} guesses left`,
+        `you guessed wrongly.You have ${guessesLeft} guesses left`,
         "red"
       );
       getIncorrectWords(input);
 
-      //resultSummary.innerText = inCorrectWords;
-      resultSummary.innerText = `[${inCorrectWords}]`
+      resultSummary.innerText = inCorrectWords;
     }
   }
 }
@@ -87,36 +109,6 @@ function setMessage(msg, color) {
   alertMsg.innerText = msg;
   alertMsg.style.color = color;
 }
-
-/* function getIncorrectWords(word) {
-  let wordArr = word.split("");
-  let randArray = correctWord.split("");
-  console.log("correctWord", randArray);
-
-  for (let i = 0; i < wordArr.length; i++) {
-    if (wordArr[i] === randArray[i]) {
-      console.log(wordArr.indexOf(wordArr[i]));
-      console.log(wordArr[i]);
-      console.log(randArray[i]);
-      //let newResult = { letter: wordArr[i], result: "correct" };
-      // inCorrectWords.push(newResult);
-      inCorrectWords.push(` ${wordArr[i]} / correct`);
-    } else if (wordArr[i] !== randArray[i]) {
-      // inCorrectWords.push({ letter: wordArr[i], result: "incorrect" });
-      inCorrectWords.push(` ${wordArr[i]} / incorrect`);
-    } else if (
-      wordArr[i] === randArray[i] &&
-      wordArr.indexOf(wordArr[i]) !== randArray.indexOf(randArray[i])
-    ) {
-     // inCorrectWords.push({ letter: wordArr[i], result: "misplaced" });
-      inCorrectWords.push(` ${wordArr[i]} / misplaced`);
-    }
-
-    console.log("incorrectW", inCorrectWords);
-  }
-  //return wordArr;
-}
- */
 
 function getIncorrectWords(word) {
   let wordArr = word.split("");
@@ -127,34 +119,11 @@ function getIncorrectWords(word) {
     console.log("w", word);
     console.log("R", randArray[i]);
     if (word === randArray[i]) {
-      inCorrectWords.push(` ${wordArr[i]} / correct`);
+      inCorrectWords.push(` ${wordArr[i].toUpperCase()} / Correct`);
     } else if (randArray.includes(word) && word !== randArray[i]) {
-      inCorrectWords.push(` ${wordArr[i]} / misplaced`);
+      inCorrectWords.push(` ${wordArr[i].toUpperCase()} / Misplaced`);
     } else {
-      inCorrectWords.push(` ${wordArr[i]} / incorrect`);
+      inCorrectWords.push(` ${wordArr[i].toUpperCase()} / Incorrect`);
     }
   });
-
-  /*  for (let i = 0; i < wordArr.length; i++) {
-    if (wordArr[i] === randArray[i]) {
-      console.log(wordArr.indexOf(wordArr[i]));
-      console.log(wordArr[i]);
-      console.log(randArray[i]);
-      //let newResult = { letter: wordArr[i], result: "correct" };
-      // inCorrectWords.push(newResult);
-      inCorrectWords.push(` ${wordArr[i]} / correct`);
-    } else if (wordArr[i] !== randArray[i]) {
-      // inCorrectWords.push({ letter: wordArr[i], result: "incorrect" });
-      inCorrectWords.push(` ${wordArr[i]} / incorrect`);
-    } else if (
-      wordArr[i] === randArray[i] &&
-      wordArr.indexOf(wordArr[i]) !== randArray.indexOf(randArray[i])
-    ) {
-     // inCorrectWords.push({ letter: wordArr[i], result: "misplaced" });
-      inCorrectWords.push(` ${wordArr[i]} / misplaced`);
-    }
-
-    console.log("incorrectW", inCorrectWords);
-  } */
-  //return wordArr;
 }

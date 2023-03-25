@@ -17,6 +17,7 @@ body {
 .container {
   background: #fff;
   padding: 4rem;
+  border-radius: 5px;
 }
 
 .secret-word {
@@ -36,7 +37,7 @@ span.msg {
 }
 
 .buttons button {
-  padding: 1rem 2rem;
+  padding: 1rem;
   border-radius: 10px;
   font-size: 1.2rem;
   color: #fff;
@@ -44,9 +45,20 @@ span.msg {
 }
 
 .buttons button.refresh {
-  background-color: rgb(23, 167, 23);
+  background-color: rgb(26, 113, 113);
 }
 
 .buttons button.check {
-  background-color: rgb(15, 15, 62);
+  background-color: aqua;
+}
+
+.result-summary,
+.msg {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  color: black;
+}
+
+.correct {
+  color: green;
 }
