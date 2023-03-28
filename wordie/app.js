@@ -1,6 +1,6 @@
+import { getIncorrectWords, inCorrectWords } from "./utils/wordFeedback.js";
 
 import secretWords from "./utils/words.js";
-
 
 // dom elements
 
@@ -15,8 +15,6 @@ let refreshBtn = document.querySelector(".refresh"),
 let guessesLeft = 3;
 let wordLength = 5;
 let correctWord;
-
-let inCorrectWords = [];
 
 const getRandomWord = () => {
   let randomWord = secretWords[Math.floor(Math.random() * secretWords.length)];
@@ -93,9 +91,15 @@ function checkWord(guessInput, correctWord) {
         `you guessed wrongly.You have ${guessesLeft} guesses left`,
         "red"
       );
-      getIncorrectWords(input);
+      getIncorrectWords(input, correctWord);
+  
 
-      resultSummary.innerText = inCorrectWords;
+      /*  inCorrectWords.forEach((word) => {
+        resultSummary.innerText = `${word.letter, word.result}`
+        console.log("word", word);
+      }); */
+
+      console.log("incorrect", inCorrectWords);
     }
   }
 }
@@ -103,22 +107,4 @@ function checkWord(guessInput, correctWord) {
 function setMessage(msg, color) {
   alertMsg.innerText = msg;
   alertMsg.style.color = color;
-}
-
-export default function getIncorrectWords(word) {
-  let wordArr = word.split("");
-  let randArray = correctWord.split("");
-  console.log("correctWord", randArray);
-
-  wordArr.forEach((word, i) => {
-    console.log("w", word);
-    console.log("R", randArray[i]);
-    if (word === randArray[i]) {
-      inCorrectWords.push(` ${wordArr[i].toUpperCase()} / Correct`);
-    } else if (randArray.includes(word) && word !== randArray[i]) {
-      inCorrectWords.push(` ${wordArr[i].toUpperCase()} / Misplaced`);
-    } else {
-      inCorrectWords.push(` ${wordArr[i].toUpperCase()} / Incorrect`);
-    }
-  });
 }
