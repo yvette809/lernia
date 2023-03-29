@@ -14,7 +14,6 @@ let refreshBtn = document.querySelector(".refresh"),
   gameContainer = document.querySelector(".container");
 
 let guessesLeft = 3;
-let wordLength = 5;
 let correctWord;
 
 const getRandomWord = () => {
