@@ -8,6 +8,7 @@ const secretWords = [
   "where",
   "which",
   "cycle",
+  "hallå",
 ];
 
 export default secretWords;

@@ -1,4 +1,5 @@
 import { getIncorrectWords, inCorrectWords } from "./utils/wordFeedback.js";
+import { hasSpecialCharsOrSpaces } from "./utils/validation.js";
 
 import secretWords from "./utils/words.js";
 
@@ -32,9 +33,7 @@ const getRandomWord = () => {
 // event  listeners
 
 refreshBtn.addEventListener("click", getRandomWord);
-checkBtn.addEventListener("click", () => {
-  checkWord(guessInput, correctWord);
-});
+checkBtn.addEventListener("click", checkWord);
 
 // play again event listener
 gameContainer.addEventListener("mousedown", function (e) {
@@ -43,11 +42,17 @@ gameContainer.addEventListener("mousedown", function (e) {
   }
 });
 
-function checkWord(guessInput, correctWord) {
+function checkWord() {
   let input = guessInput.value.toLowerCase();
+
   if (input === "")
-    return setMessage("Input cannot be empty, guess a word", "red");
-  if (wordLength === 5 && guessInput.value === correctWord) {
+    return setMessage("Input cannot be empty , guess a word", "red");
+
+  if (!hasSpecialCharsOrSpaces(input)) {
+    return setMessage("input cannot have special characters", "red");
+  }
+
+  if (input === correctWord) {
     // Game over, won
     guessInput.disabled = true;
     guessInput.style.borderColor = "green";
@@ -92,7 +97,6 @@ function checkWord(guessInput, correctWord) {
         "red"
       );
       getIncorrectWords(input, correctWord);
-  
 
       /*  inCorrectWords.forEach((word) => {
         resultSummary.innerText = `${word.letter, word.result}`

@@ -1,41 +1,38 @@
+/**
+ * --- TESTER ---
+ * I used unit test because it is only a single function which is to be tested
+ * I tested if the right error message is placed correctly
+ * I tested if the lenght of guess and correct word are the same
+ * I tested if the right message is obtained if input field is empty
+ 
+**/
+
 import { describe, expect, it } from "@jest/globals";
 import { getIncorrectWords } from "./utils/wordFeedback.js";
 
 describe("the function getIncorrectWords()", () => {
-   it("returns all correct for a correct guess", () => {
-    const result = getIncorrectWords("river", "river");
-    const expected = [
-      { letter: "r", result: "Correct" },
-      { letter: "i", result: "Correct" },
-      { letter: "v", result: "Correct" },
-      { letter: "e", result: "Correct" },
-      { letter: "r", result: "Correct" },
-    ];
-    expect(result).toStrictEqual(expected);
-  }); 
-
-  it("shows the right character message of misplaced", () => {
-    const result = getIncorrectWords("relov", "lover");
-    const expected = [
-      { letter: "r", result: "Misplaced" },
-      { letter: "e", result: "Misplaced" },
-      { letter: "l", result: "Misplaced" },
-      { letter: "o", result: "Misplaced" },
-      { letter: "v", result: "Misplaced" },
-    ];
-    expect(result).toStrictEqual(expected);
-  }); 
-
   test('Check if the results "incorrect, misplaced, correct" are in the right place', () => {
     const result = getIncorrectWords("renir", "river");
     const expected = [
-        { letter: 'r', result: 'Correct' },
-        { letter: 'e', result: 'Misplaced' },
-        { letter: 'n', result: 'Incorrect' },
-        { letter: 'i', result: 'Misplaced' },
-        { letter: 'r', result: 'Correct' }
+      { letter: "r", result: "Correct" },
+      { letter: "e", result: "Misplaced" },
+      { letter: "n", result: "Incorrect" },
+      { letter: "i", result: "Misplaced" },
+      { letter: "r", result: "Correct" },
     ];
 
     expect(result).toEqual(expected);
-});
+  });
+
+  test("if word length of guess and correct word are equal", () => {
+    const result = getIncorrectWords("riv", "river");
+    const expected = "Both inputs must have the same length!";
+    expect(result).toBe(expected);
+  });
+
+  test("if guess input is empty", () => {
+    const result = getIncorrectWords("", "river");
+    const expected = "Input cannot be empty";
+    expect(result).toBe(expected);
+  });
 });
