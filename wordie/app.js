@@ -80,6 +80,7 @@ function checkWord() {
   } else {
     // Wrong word
     guessesLeft -= 1;
+
     if (guessesLeft === 0) {
       // Game over , lost
       guessInput.disabled === true;
@@ -97,9 +98,31 @@ function checkWord() {
       );
       getIncorrectWords(input, correctWord);
 
-      /*  inCorrectWords.forEach((word) => {
-        resultSummary.innerText = `${word.letter, word.result}`
+      // show the right colour of words in the wordlist
+      showLetterColor(inCorrectWords);
+
+      /* inCorrectWords.forEach((word) => {
         console.log("word", word);
+        let wordResult = resultSummary.querySelectorAll(".result");
+        if (word.result === "Correct") {
+          console.log("cW", word.result);
+          for (let resColor of wordResult) {
+            resColor.style.color = "green";
+          }
+        } else if (word.result === "Incorrect") {
+          for (let resColor of wordResult) {
+            resColor.style.color = "red";
+          }
+          console.log("IcW", word.result);
+        } else {
+          for (let resColor of wordResult) {
+            resColor.style.color = "aqua";
+            console.log("McW", word.result);
+          }
+        }
+
+        //showLetterColor(word);
+        resultSummary.innerHTML += ` <span class='letter'>${word.letter} </span> -<span class='result'>${word.result},</span>`;
       }); */
 
       console.log("incorrect", inCorrectWords);
@@ -107,7 +130,54 @@ function checkWord() {
   }
 }
 
+// message alert
 function setMessage(msg, color) {
   alertMsg.innerText = msg;
   alertMsg.style.color = color;
+}
+
+function showLetterColor(words) {
+  let resColor = resultSummary.querySelectorAll(".result");
+  for (let i = 0; i < words.length; i++) {
+    console.log("incr", words[i]);
+  
+    console.log("result", resColor);
+
+    if (words[i].result === "Correct") {
+      console.log("cW", words[i].result);
+      console.log("spani", resColor);
+      resColor[i].style.color = "green";
+    } else if (words[i].result === "InCorrect") {
+      console.log("IcW", words[i].result);
+      resColor[i].style.color = "red";
+    } else {
+      resColor[i].style.color = "aqua";
+      console.log("McW", words[i].result);
+    }
+
+    resultSummary.innerHTML += ` <span class='letter'>${words[i].letter} </span> -<span class='result'>${words[i].result},</span>`;
+  }
+
+  inCorrectWords.forEach((word) => {
+    let wordResult = resultSummary.querySelectorAll(".result");
+    console.log("result", wordResult);
+
+    if (word.result === "Correct") {
+      for (let resColor of wordResult) {
+        resColor.style.color = "green";
+      }
+    } else if (word.result === "Incorrect") {
+      for (let resColor of wordResult) {
+        resColor.style.color = "red";
+      }
+      console.log("IcW", word.result);
+    } else {
+      for (let resColor of wordResult) {
+        resColor.style.color = "aqua";
+      }
+    }
+
+    //showLetterColor(word);
+    resultSummary.innerHTML += ` <h class='letter'>${word.letter} </h> -<h class='result'>${word.result},</h>`;
+  });
 }
