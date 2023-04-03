@@ -137,27 +137,6 @@ function setMessage(msg, color) {
 }
 
 function showLetterColor(words) {
-  let resColor = resultSummary.querySelectorAll(".result");
-  for (let i = 0; i < words.length; i++) {
-    console.log("incr", words[i]);
-  
-    console.log("result", resColor);
-
-    if (words[i].result === "Correct") {
-      console.log("cW", words[i].result);
-      console.log("spani", resColor);
-      resColor[i].style.color = "green";
-    } else if (words[i].result === "InCorrect") {
-      console.log("IcW", words[i].result);
-      resColor[i].style.color = "red";
-    } else {
-      resColor[i].style.color = "aqua";
-      console.log("McW", words[i].result);
-    }
-
-    resultSummary.innerHTML += ` <span class='letter'>${words[i].letter} </span> -<span class='result'>${words[i].result},</span>`;
-  }
-
   inCorrectWords.forEach((word) => {
     let wordResult = resultSummary.querySelectorAll(".result");
     console.log("result", wordResult);
