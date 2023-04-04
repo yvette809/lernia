@@ -1,7 +1,6 @@
-import { getIncorrectWords, inCorrectWords } from "./utils/wordFeedback.js";
-import { hasSpecialCharsOrSpaces } from "./utils/validation.js";
 
 import secretWords from "./utils/words.js";
+
 
 // dom elements
 
@@ -10,12 +9,14 @@ let refreshBtn = document.querySelector(".refresh"),
   secretWord = document.querySelector(".secret-word"),
   guessInput = document.querySelector(".guessed-word"),
   alertMsg = document.querySelector(".msg"),
-  resultSummary = document.querySelector(".result-summary "),
+  resultSummary = document.querySelector(".result-summary span"),
   gameContainer = document.querySelector(".container");
 
 let guessesLeft = 3;
+let wordLength = 5;
 let correctWord;
-let maxLength = 5;
+
+let inCorrectWords = [];
 
 const getRandomWord = () => {
   let randomWord = secretWords[Math.floor(Math.random() * secretWords.length)];
@@ -33,7 +34,9 @@ const getRandomWord = () => {
 // event  listeners
 
 refreshBtn.addEventListener("click", getRandomWord);
-checkBtn.addEventListener("click", checkWord);
+checkBtn.addEventListener("click", () => {
+  checkWord(guessInput, correctWord);
+});
 
 // play again event listener
 gameContainer.addEventListener("mousedown", function (e) {
@@ -42,21 +45,11 @@ gameContainer.addEventListener("mousedown", function (e) {
   }
 });
 
-function checkWord() {
+function checkWord(guessInput, correctWord) {
   let input = guessInput.value.toLowerCase();
-
   if (input === "")
-    return setMessage("Input cannot be empty , guess a word", "red");
-
-  if (!hasSpecialCharsOrSpaces(input)) {
-    return setMessage("input cannot have special characters", "red");
-  }
-
-  if (input.length < maxLength) {
-    return setMessage(`Guess cannot be less than  ${maxLength} chars`, "red");
-  }
-
-  if (input === correctWord && input.length === maxLength) {
+    return setMessage("Input cannot be empty, guess a word", "red");
+  if (wordLength === 5 && guessInput.value === correctWord) {
     // Game over, won
     guessInput.disabled = true;
     guessInput.style.borderColor = "green";
@@ -66,8 +59,10 @@ function checkWord() {
       "green"
     );
 
-    resultSummary.innerText = "All letters are correct";
-    resultSummary.style.color = "green";
+    setTimeout(() => {
+      resultSummary.innerText = "All letters are correct";
+      resultSummary.style.color = "green";
+    }, 1000);
 
     // play again
 
@@ -82,9 +77,7 @@ function checkWord() {
     guessInput.value = "";
   } else {
     // Wrong word
-
     guessesLeft -= 1;
-
     if (guessesLeft === 0) {
       // Game over , lost
       guessInput.disabled === true;
@@ -93,7 +86,6 @@ function checkWord() {
         `Game over, you lost. The correct word was ${correctWord} `,
         "red"
       );
-
       guessInput.value = "";
     } else {
       // Game continues, wrong answer
@@ -101,38 +93,32 @@ function checkWord() {
         `you guessed wrongly.You have ${guessesLeft} guesses left`,
         "red"
       );
-      getIncorrectWords(input, correctWord);
+      getIncorrectWords(input);
 
-      // show the right colour of words in the wordlist
-      showLetterColor(inCorrectWords);
-
-      console.log("incorrect", inCorrectWords);
+      resultSummary.innerText = inCorrectWords;
     }
   }
 }
 
-// message alert
 function setMessage(msg, color) {
   alertMsg.innerText = msg;
   alertMsg.style.color = color;
 }
 
-function showLetterColor() {
-  inCorrectWords.forEach((word) => {
-    let wordDiv = Array.from(resultSummary.children);
+export default function getIncorrectWords(word) {
+  let wordArr = word.split("");
+  let randArray = correctWord.split("");
+  console.log("correctWord", randArray);
 
-    wordDiv.forEach((resColor, idx) => {
-      let heading = document.querySelector(".result");
-      if (heading.innerText === "Correct") {
-        resColor.style.color = "aqua";
-      } else if (heading.innerText === "Incorrect") {
-        resColor.style.color = "red";
-      } else {
-        resColor.style.color = "green";
-      }
-    });
-
-    //showLetterColor(word);
-    resultSummary.innerHTML += `<div class='word-info'><h class='letter'>${word.letter} </h> -<h class='result'>${word.result}</h></div> `;
+  wordArr.forEach((word, i) => {
+    console.log("w", word);
+    console.log("R", randArray[i]);
+    if (word === randArray[i]) {
+      inCorrectWords.push(` ${wordArr[i].toUpperCase()} / Correct`);
+    } else if (randArray.includes(word) && word !== randArray[i]) {
+      inCorrectWords.push(` ${wordArr[i].toUpperCase()} / Misplaced`);
+    } else {
+      inCorrectWords.push(` ${wordArr[i].toUpperCase()} / Incorrect`);
+    }
   });
 }
