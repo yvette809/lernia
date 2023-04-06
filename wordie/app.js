@@ -1,5 +1,5 @@
 import { getIncorrectWords, inCorrectWords } from "./utils/wordFeedback.js";
-import { hasSpecialCharsOrSpaces } from "./utils/validation.js";
+import { hasSpecialCharsOrSpaces, hasRepeats } from "./utils/validation.js";
 
 import secretWords from "./utils/words.js";
 
@@ -56,7 +56,10 @@ function checkWord() {
     return setMessage(`Guess cannot be less than  ${maxLength} chars`, "red");
   }
 
-  if (input === correctWord && input.length === maxLength) {
+  if (
+    (input === correctWord && input.length === maxLength) ||
+    hasRepeats(input)
+  ) {
     // Game over, won
     guessInput.disabled = true;
     guessInput.style.borderColor = "green";
