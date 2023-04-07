@@ -139,3 +139,7 @@ function showLetterColor() {
     resultSummary.innerHTML += `<div class='word-info'><h class='letter'>${word.letter} </h> -<h class='result'>${word.result}</h></div> `;
   });
 }
+
+// validate input
+
+function validateInput(input) {}
