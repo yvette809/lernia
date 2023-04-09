@@ -1,24 +1,25 @@
-import express from 'express'
-import cors from 'cors'
-import getRandomWord from './src/app.js'
+import express from "express";
+import cors from "cors";
+import { getRandomWord } from "./src/app.js";
 
+const app = express();
 
-const app = express()
-
-app.use(cors())
-app.use(express.json)
+app.use(cors());
+app.use(express.json());
 app.use(express.static("../frontend/build"));
 
+app.get("/api/random_word", (req, res) => {
+  try {
+    const word = getRandomWord();
+    console.log("word", word);
+    res.status(200).json({ word });
+  } catch (error) {
+    console.log(error);
+  }
+});
 
-app.get('/api/random_word', async(req,res)=>{
-    const word = getRandomWord()
-    res.json({word})
-})
+const PORT = 5080;
 
-
-
-const PORT = 5080
-
-app.listen(PORT, ()=>{
-    console.log(`server is running on port ${PORT}`)
-})
+app.listen(PORT, () => {
+  console.log(`server is running on port ${PORT}`);
+});
