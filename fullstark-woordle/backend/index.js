@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { getRandomWord } from "./src/app.js";
-
+import { saveHighscore, loadHighscores } from "./src/db.js";
 const app = express();
 
 app.use(cors());
@@ -16,6 +16,21 @@ app.get("/api/random_word", (req, res) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+app.post("/api/highscores", async (req, res) => {
+  const highScore = await saveHighscore(req.body);
+  res.status(201).json({ highScore });
+});
+
+app.get("/api/highscores", async (req, res) => {
+  const highscores = await loadHighscores();
+  res.json({
+    highscores: highscores.map((entry) => ({
+      ...entry,
+      duration: new Date(entry.endTime) - new Date(entry.startTime),
+    })),
+  });
 });
 
 const PORT = 5080;

@@ -9,7 +9,7 @@ function App() {
   const startGame = async () => {
     const res = await fetch("http://localhost:5080/api/random_word");
     const data = await res.json();
-    console.log("data", data);
+    console.log("data", data.word);
     setCorrectWord(data.word);
   };
 
@@ -37,6 +37,7 @@ function App() {
   function validateInput(text) {
     if (text === "") {
       alert("input cannot be empty");
+
       /* I will create an alert component to take care of this */
     } else if (text.length < maxLength || text.length > maxLength) {
       alert(`Input length cannot be less than or greater than ${maxLength}`);
