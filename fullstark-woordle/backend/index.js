@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
 import { getRandomWord } from "./src/app.js";
 import { saveHighscore, loadHighscores } from "./src/db.js";
 const app = express();
@@ -7,6 +8,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static("../frontend/build"));
+
+dotenv.config();
 
 app.get("/api/random_word", (req, res) => {
   try {
@@ -33,7 +36,7 @@ app.get("/api/highscores", async (req, res) => {
   });
 });
 
-const PORT = 5080;
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
