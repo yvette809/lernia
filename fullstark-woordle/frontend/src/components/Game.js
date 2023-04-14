@@ -3,20 +3,51 @@
 
 import { useState } from "react";
 
-const Game = ({ correctWord, validateInput, hasRepeats }) => {
-  const [startTime] = useState(new Date());
+const Game = ({ game, validateInput, hasRepeats }) => {
+  const { correctWord, _id, endTime, startTime } = game;
+  console.log(Math.round(startTime), startTime);
+
+  let gameId = _id;
+
   const [gameState, setGameState] = useState("playing");
-  const [endTime, setEndTime] = useState(null);
+  const [result, setResult] = useState(null);
   const [guessInput, setGuessInput] = useState("");
   const [guesses, setGuesses] = useState([]);
   const [name, setName] = useState("");
   const [randText, setRandText] = useState("");
-  const [guessesLeft, setGuessesLeft] = useState(5);
+  const [guessesLeft, setGuessesLeft] = useState(2);
 
-  const handleKeyUp = (keyCode) => {
+  const handleKeyUp = async (keyCode) => {
     let userInput = guessInput.toUpperCase();
     if (keyCode === "Enter") {
       validateInput(guessInput);
+      setGuessInput("");
+
+      const res = await fetch(
+        `http://localhost:5080/api/games/${gameId}/guesses`,
+        {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ guess: userInput }),
+        }
+      );
+      const data = await res.json();
+      if (data.correct) {
+        setResult(data.result);
+        setGameState("won");
+      } else if (!data.incorrect && guessInput !== "") {
+        setGuessesLeft(guessesLeft - 1);
+        setGameState("fail");
+        alert(
+          `you failed, try again. you have ${guessesLeft - 1} guesses left`
+        );
+      }
+      console.log("guessDta", data);
+      setGuesses(data.guesses);
+
+      /*   validateInput(guessInput);
       setGuesses([...guesses, guessInput]);
       setGuessInput("");
       if (userInput === correctWord) {
@@ -28,29 +59,28 @@ const Game = ({ correctWord, validateInput, hasRepeats }) => {
         alert(
           `you failed, try again. you have ${guessesLeft - 1} guesses left`
         );
-      }
+      } */
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const highScore = {
+        name,
+      };
 
-    const highScore = {
-      correctWord,
-      endTime,
-      guesses,
-      name,
-      startTime,
-    };
-
-    await fetch("http://localhost:5080/api/highsores", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(highScore),
-    });
-    setGameState("end");
+      await fetch(`http://localhost:5080/api/games/${gameId}/highscore`, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(highScore),
+      });
+      setGameState("end");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   // word shuffle
@@ -67,13 +97,14 @@ const Game = ({ correctWord, validateInput, hasRepeats }) => {
   };
 
   if (gameState === "won") {
-    const duration = Math.round((endTime - startTime) / 1000);
+    const duration = Math.round((result.endTime - result.startTime) / 1000);
+
     return (
       <div className="Game">
         <h1>You won</h1>
-        <p>The guess word was {guesses.at(-1)}</p>
+        <p>The guess word was {correctWord}</p>
         <p>Guesses: {guesses.length}</p>
-        <p>Duration:{duration}s</p>
+        <p>Duration:{duration}</p>
         <h2>Add to highscore</h2>
         <form onSubmit={handleSubmit}>
           <input
@@ -81,18 +112,20 @@ const Game = ({ correctWord, validateInput, hasRepeats }) => {
             onChange={(e) => setName(e.target.value)}
             placeholder="your Name"
           />
+          <input type="submit" />
         </form>
       </div>
     );
   } else if (gameState === "end") {
     return <h1>Done!</h1>;
+    /* here i will redirect to highscore list */
   }
 
   if (guessesLeft === 0) {
-    window.location.reload(false)
+    window.location.reload(false);
     return (
       <div>
-        Game over! you lost. The correct word was{" "}
+        Game over! you lost. The correct word was
         <p className="correct">{correctWord}</p>
       </div>
     );

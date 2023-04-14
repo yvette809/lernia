@@ -7,11 +7,9 @@ import { highScoreModel } from "./models/highScoreModel.js";
 export async function startGame(req, res) {
   try {
     const { guesses, correctWord, startTime, endTime } = req.body;
-    /*  console.log("guess", guesses); */
-    console.log(Array.isArray(guesses));
 
     let newGame = new gameModel({
-      guesses: guesses.toUpperCase(),
+      guesses,
       correctWord: getRandomWord(),
       startTime,
       endTime,
@@ -66,21 +64,29 @@ export async function getGameById(req, res) {
 //post /api/games:id/highscore
 
 export async function postHighScore(req, res) {
-  const game = await gameModel.findById(req.params.id);
+  try {
+    const game = await gameModel.findById(req.params.id);
 
-  if (game) {
-    const { name } = req.body;
-    const highscore = new highScoreModel({
-      game,
-      name,
-    });
-
-    const score = await highscore.save();
-
-    res.status(201).json({ score });
-  } else {
-    res.status(404).end();
+    if (game) {
+      const { name } = req.body;
+      const highscore = new highScoreModel({
+        game,
+        name,
+      });
+  
+      const score = await highscore.save();
+  
+      res.status(201).json({ score });
+    } else {
+      res.status(404)
+      throw new Error(`game with id ${req.params.id} not found`)
+     /*  res.status(404).send(`game with id ${req.params.id} not found`); */
+    }
+    
+  } catch (error) {
+    console.log(error)
   }
+ 
 }
 
 //get /api//highscore
@@ -95,3 +101,4 @@ export async function getHighScores(req, res) {
     })),
   });
 }
+

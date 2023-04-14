@@ -26,6 +26,7 @@ app.use(express.static("../frontend/build"));
 dotenv.config();
 
 app.post("/api/games", startGame);
+
 app.post("/api/games/:id/guesses", postGuesses);
 app.post("/api/games/:id/highscore", postHighScore);
 app.get("/api/games/:id", getGameById);
