@@ -28,7 +28,7 @@ export async function postGuesses(req, res) {
   const game = await gameModel.findById(req.params.id);
   console.log("game", game, game.guesses);
   if (game) {
-    const guess = req.body.guess.toUpperCase();
+    const guess = req.body.guess
     console.log("guess", guess);
     game.guesses.push(guess);
     await game.save();
@@ -91,7 +91,7 @@ export async function postHighScore(req, res) {
 
 //get /api//highscore
 
-export async function getHighScores(req, res) {
+/* export async function getHighScores(req, res) {
   let highscores = await highScoreModel.find().populate("game");
 
   res.json({
@@ -100,5 +100,17 @@ export async function getHighScores(req, res) {
       duration: new Date(score.game.endTime) - new Date(score.game.startTime),
     })),
   });
+} */
+
+export async function getHighScores(req, res) {
+  let highscores = await highScoreModel.find().populate("game");
+  highscores = highscores.map((score)=>{
+    return {
+      score,
+      duration: new Date(score.game.endTime) - new Date(score.game.startTime),
+    }
+  })
+  res.render("/highscores", { highscores });
+ 
 }
 

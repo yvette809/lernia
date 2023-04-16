@@ -4,8 +4,7 @@
 import { useState } from "react";
 
 const Game = ({ game, validateInput, hasRepeats }) => {
-  const { correctWord, _id, endTime, startTime } = game;
-  console.log(Math.round(startTime), startTime);
+  const { correctWord, _id } = game;
 
   let gameId = _id;
 
@@ -97,14 +96,15 @@ const Game = ({ game, validateInput, hasRepeats }) => {
   };
 
   if (gameState === "won") {
-    const duration = Math.round((result.endTime - result.startTime) / 1000);
+    const duration =
+      Math.round(new Date(result.endTime) - new Date(result.startTime)) / 1000;
 
     return (
       <div className="Game">
         <h1>You won</h1>
         <p>The guess word was {correctWord}</p>
         <p>Guesses: {guesses.length}</p>
-        <p>Duration:{duration}</p>
+        <p>Duration:{duration}s</p>
         <h2>Add to highscore</h2>
         <form onSubmit={handleSubmit}>
           <input

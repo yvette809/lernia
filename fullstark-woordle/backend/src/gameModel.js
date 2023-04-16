@@ -17,7 +17,7 @@ const gameSchema = new Schema({
 
   endTime: {
     type: Date,
-    default: Date.now,
+    default: null,
   },
 });
 
