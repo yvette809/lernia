@@ -2,9 +2,11 @@
 /* set alert function */
 
 import { useState } from "react";
+import { redirect, useNavigate } from "react-router-dom";
 
 const Game = ({ game, validateInput, hasRepeats }) => {
   const { correctWord, _id } = game;
+  const navigate = useNavigate();
 
   let gameId = _id;
 
@@ -45,20 +47,6 @@ const Game = ({ game, validateInput, hasRepeats }) => {
       }
       console.log("guessDta", data);
       setGuesses(data.guesses);
-
-      /*   validateInput(guessInput);
-      setGuesses([...guesses, guessInput]);
-      setGuessInput("");
-      if (userInput === correctWord) {
-        setGameState("won");
-        setEndTime(new Date());
-      } else if (userInput !== correctWord && guessInput !== "") {
-        setGuessesLeft(guessesLeft - 1);
-        setGameState("fail");
-        alert(
-          `you failed, try again. you have ${guessesLeft - 1} guesses left`
-        );
-      } */
     }
   };
 
@@ -117,16 +105,18 @@ const Game = ({ game, validateInput, hasRepeats }) => {
       </div>
     );
   } else if (gameState === "end") {
-    return <h1>Done!</h1>;
-    /* here i will redirect to highscore list */
+    redirect("/about");
+    // return <h1>Done!</h1>;
   }
 
   if (guessesLeft === 0) {
     window.location.reload(false);
     return (
       <div>
-        Game over! you lost. The correct word was
+        <p>Game over! you lost. The correct word was</p>
         <p className="correct">{correctWord}</p>
+        <p>Guesses: {guesses.length}</p>
+        {/*  <p>Duration:{duration}s</p> */}
       </div>
     );
   }

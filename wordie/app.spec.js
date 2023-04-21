@@ -14,11 +14,11 @@ describe("the function getIncorrectWords()", () => {
   test('Check if the results "incorrect, misplaced, correct" are in the right place', () => {
     const result = getIncorrectWords("renir", "river");
     const expected = [
-      { letter: "r", result: "Correct" },
-      { letter: "e", result: "Misplaced" },
-      { letter: "n", result: "Incorrect" },
-      { letter: "i", result: "Misplaced" },
-      { letter: "r", result: "Correct" },
+      { letter: "r", result: "correct" },
+      { letter: "e", result: "misplaced" },
+      { letter: "n", result: "incorrect" },
+      { letter: "i", result: "misplaced" },
+      { letter: "r", result: "correct" },
     ];
 
     expect(result).toEqual(expected);

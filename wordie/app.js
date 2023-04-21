@@ -13,7 +13,7 @@ let refreshBtn = document.querySelector(".refresh"),
   resultSummary = document.querySelector(".result-summary "),
   gameContainer = document.querySelector(".container");
 
-let guessesLeft = 3;
+let guessesLeft = 5;
 let correctWord;
 let maxLength = 5;
 
@@ -56,10 +56,7 @@ function checkWord() {
     return setMessage(`Guess cannot be less than  ${maxLength} chars`, "red");
   }
 
-  if (
-    (input === correctWord && input.length === maxLength) ||
-    hasRepeats(input)
-  ) {
+  if (input === correctWord && input.length === maxLength) {
     // Game over, won
     guessInput.disabled = true;
     guessInput.style.borderColor = "green";
@@ -87,6 +84,7 @@ function checkWord() {
     // Wrong word
 
     guessesLeft -= 1;
+    guessInput.value = "";
 
     if (guessesLeft === 0) {
       // Game over , lost
@@ -107,7 +105,7 @@ function checkWord() {
       getIncorrectWords(input, correctWord);
 
       // show the right colour of words in the wordlist
-      showLetterColor(inCorrectWords);
+      showLetterColor();
 
       console.log("incorrect", inCorrectWords);
     }
@@ -126,9 +124,9 @@ function showLetterColor() {
 
     wordDiv.forEach((resColor, idx) => {
       let heading = document.querySelector(".result");
-      if (heading.innerText === "Correct") {
+      if (heading.innerText === "correct") {
         resColor.style.color = "aqua";
-      } else if (heading.innerText === "Incorrect") {
+      } else if (heading.innerText === "incorrect") {
         resColor.style.color = "red";
       } else {
         resColor.style.color = "green";
