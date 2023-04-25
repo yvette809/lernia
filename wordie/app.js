@@ -17,6 +17,8 @@ let guessesLeft = 5;
 let correctWord;
 let maxLength = 5;
 
+const isValid = hasRepeats(guessInput.value);
+
 const getRandomWord = () => {
   let randomWord = secretWords[Math.floor(Math.random() * secretWords.length)];
   let randomArray = randomWord.split("");
@@ -45,18 +47,22 @@ gameContainer.addEventListener("mousedown", function (e) {
 function checkWord() {
   let input = guessInput.value.toLowerCase();
 
-  if (input === "")
-    return setMessage("Input cannot be empty , guess a word", "red");
+  if (input === "") {
+    setMessage("Input cannot be empty , guess a word", "red");
+    return;
+  }
 
   if (!hasSpecialCharsOrSpaces(input)) {
-    return setMessage("input cannot have special characters", "red");
+    setMessage("input cannot have special characters", "red");
+    return;
   }
 
   if (input.length < maxLength) {
-    return setMessage(`Guess cannot be less than  ${maxLength} chars`, "red");
+    setMessage(`Guess cannot be less than  ${maxLength} chars`, "red");
+    return;
   }
 
-  if (input === correctWord && input.length === maxLength) {
+  if ((input === correctWord && input.length === maxLength) || isValid) {
     // Game over, won
     guessInput.disabled = true;
     guessInput.style.borderColor = "green";
@@ -65,21 +71,11 @@ function checkWord() {
       `Congratulations,You Won. ${correctWord.toUpperCase()} is correct`,
       "green"
     );
-
-    resultSummary.innerText = "All letters are correct";
-    resultSummary.style.color = "green";
+    resultSummary.style.display = "none";
 
     // play again
 
-    checkBtn.innerText = "Play Again";
-    checkBtn.className += "play-again";
-    checkBtn.style.color = "black";
-    checkBtn.style.backgroundColor = "aqua";
-    guessInput.style.borderColor = "none";
-    guessInput.disabled = false;
-    //getRandomWord();
-
-    guessInput.value = "";
+    playAgain();
   } else {
     // Wrong word
 
@@ -96,6 +92,7 @@ function checkWord() {
       );
 
       guessInput.value = "";
+      playAgain();
     } else {
       // Game continues, wrong answer
       setMessage(
@@ -116,7 +113,11 @@ function checkWord() {
 function setMessage(msg, color) {
   alertMsg.innerText = msg;
   alertMsg.style.color = color;
+
+  
 }
+
+// set time out alert msg
 
 function showLetterColor() {
   inCorrectWords.forEach((word) => {
@@ -138,6 +139,17 @@ function showLetterColor() {
   });
 }
 
-// validate input
+// play again
 
-function validateInput(input) {}
+function playAgain() {
+  checkBtn.innerText = "Play Again";
+  checkBtn.className += "play-again";
+  checkBtn.style.color = "black";
+  checkBtn.style.backgroundColor = "aqua";
+  guessInput.style.borderColor = "none";
+  guessInput.disabled = false;
+
+  getRandomWord();
+
+  guessInput.value = "";
+}
