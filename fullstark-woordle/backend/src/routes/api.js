@@ -10,14 +10,20 @@ import { words } from "../utils/words.js";
 
 apiRouter.post("/api/games", async (req, res) => {
   try {
-    const { guesses, correctWord, wordLength, hasRepeats, startTime, endTime } =
-      req.body;
+    const {
+      guesses,
+      correctWord,
+      wordLength,
+      allowRepeating,
+      startTime,
+      endTime,
+    } = req.body;
 
     let newGame = new gameModel({
       guesses,
-      correctWord: getRandomWord(wordLength, hasRepeats, words),
+      correctWord: getRandomWord(wordLength, allowRepeating, words),
       wordLength,
-      hasRepeats,
+      allowRepeating,
       startTime,
       endTime,
     });
@@ -25,7 +31,7 @@ apiRouter.post("/api/games", async (req, res) => {
     const game = await newGame.save();
     res.status(201).send(game);
   } catch (error) {
-    res.status(400).send('Bad request, could not post game')
+    res.status(400).send("Bad request, could not post game");
     console.log(error);
   }
 });

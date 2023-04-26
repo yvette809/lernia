@@ -12,7 +12,7 @@ const gameSchema = new Schema({
   wordLength: {
     type: Number,
   },
-  hasRepeats: {
+  allowRepeating: {
     type: Boolean,
   },
 
