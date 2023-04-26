@@ -9,6 +9,12 @@ const gameSchema = new Schema({
   correctWord: {
     type: String,
   },
+  wordLength: {
+    type: Number,
+  },
+  hasRepeats: {
+    type: Boolean,
+  },
 
   startTime: {
     type: Date,

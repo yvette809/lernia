@@ -1,6 +1,6 @@
 const HIGHSCORES = [];
-import { gameModel } from "./gameModel.js";
-import { getRandomWord } from "./app.js";
+import { gameModel } from "./models/gameModel.js";
+import { getRandomWord } from "./utils/getRandomWord.js";
 import { highScoreModel } from "./models/highScoreModel.js";
 
 //post games
@@ -28,7 +28,7 @@ export async function postGuesses(req, res) {
   const game = await gameModel.findById(req.params.id);
   console.log("game", game, game.guesses);
   if (game) {
-    const guess = req.body.guess
+    const guess = req.body.guess;
     console.log("guess", guess);
     game.guesses.push(guess);
     await game.save();
@@ -73,20 +73,18 @@ export async function postHighScore(req, res) {
         game,
         name,
       });
-  
+
       const score = await highscore.save();
-  
+
       res.status(201).json({ score });
     } else {
-      res.status(404)
-      throw new Error(`game with id ${req.params.id} not found`)
-     /*  res.status(404).send(`game with id ${req.params.id} not found`); */
+      res.status(404);
+      throw new Error(`game with id ${req.params.id} not found`);
+      /*  res.status(404).send(`game with id ${req.params.id} not found`); */
     }
-    
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
- 
 }
 
 //get /api//highscore
@@ -104,13 +102,11 @@ export async function postHighScore(req, res) {
 
 export async function getHighScores(req, res) {
   let highscores = await highScoreModel.find().populate("game");
-  highscores = highscores.map((score)=>{
+  highscores = highscores.map((score) => {
     return {
       score,
       duration: new Date(score.game.endTime) - new Date(score.game.startTime),
-    }
-  })
+    };
+  });
   res.render("/highscores", { highscores });
- 
 }
-

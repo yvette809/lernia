@@ -10,6 +10,9 @@ const highScoreSchema = new Schema({
     type: String,
     required: ["name is required", true],
   },
+  endTime:{
+    type:Date
+  }
 });
 
 export const highScoreModel = mongoose.model("highScore", highScoreSchema);

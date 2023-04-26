@@ -4,14 +4,14 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { engine } from "express-handlebars";
 import { highScoreModel } from "./src/models/highScoreModel.js";
-import {
-  /*  loadHighscores, */
+import apiRouter from "./src/routes/api.js";
+/* import {
   startGame,
   postGuesses,
   getGameById,
   postHighScore,
   getHighScores,
-} from "./src/db.js";
+} from "./src/db.js"; */
 import { startDb } from "./startDb.js";
 export const app = express();
 
@@ -32,12 +32,13 @@ app.use(express.static("../frontend/build"));
 
 dotenv.config();
 
-app.post("/api/games", startGame);
+app.use(apiRouter);
+/* app.post("/api/games", startGame);
 
 app.post("/api/games/:id/guesses", postGuesses);
 app.post("/api/games/:id/highscore", postHighScore);
-app.get("/api/games/:id", getGameById);
-//app.get("/api/highscores", getHighScores);
+app.get("/api/games/:id", getGameById); */
+
 
 app.get("/highscores", async (req, res) => {
   let scores = await highScoreModel.find().populate("game");

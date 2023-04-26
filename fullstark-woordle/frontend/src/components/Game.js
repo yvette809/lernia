@@ -36,6 +36,7 @@ const Game = ({ game, validateInput, hasRepeats }) => {
       );
       const data = await res.json();
       if (data.correct) {
+        console.log('data',data)
         setResult(data.result);
         setGameState("won");
       } else if (!data.incorrect && guessInput !== "") {
