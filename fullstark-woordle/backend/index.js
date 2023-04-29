@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { engine } from "express-handlebars";
 import { highScoreModel } from "./src/models/highScoreModel.js";
 import apiRouter from "./src/routes/api.js";
+import pageRouter from "./src/routes/pages.js";
 /* import {
   startGame,
   postGuesses,
@@ -28,28 +29,12 @@ app.use(
     extended: false,
   })
 );
-app.use(express.static("../frontend/build"));
+app.use(express.static("../client/build"));
 
 dotenv.config();
 
 app.use(apiRouter);
-/* app.post("/api/games", startGame);
-
-app.post("/api/games/:id/guesses", postGuesses);
-app.post("/api/games/:id/highscore", postHighScore);
-app.get("/api/games/:id", getGameById); */
-
-
-app.get("/highscores", async (req, res) => {
-  let scores = await highScoreModel.find().populate("game");
-  let mappedScores = scores.map((score) => {
-    return {
-      score,
-      duration: new Date(score.game.endTime) - new Date(score.game.startTime),
-    };
-  });
-  res.render("highscores", { mappedScores });
-});
+app.use(pageRouter);
 
 const PORT = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI;

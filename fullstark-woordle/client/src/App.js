@@ -5,6 +5,7 @@ import GameScreen from "./pages/GameScreen";
 const App = () => {
   const [game, setGame] = useState(null);
   const [screen, setScreen] = useState("start");
+ 
 
   const startGame = async (wordLength, allowRepeating) => {
     const res = await fetch("/api/games", {
@@ -29,7 +30,15 @@ const App = () => {
   return (
     <>
       {screen === "start" && <StartScreen onStartGame={startGame} />}
-      {screen === "game" && game && <GameScreen game={game} />}
+      {screen === "game" && game && (
+        <GameScreen
+          game={game}
+          onReset={() => {
+            setGame(null);
+            setScreen("start");
+          }}
+        />
+      )}
     </>
   );
 };

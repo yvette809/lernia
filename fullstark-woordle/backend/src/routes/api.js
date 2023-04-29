@@ -9,14 +9,15 @@ import { words } from "../utils/words.js";
 //post games
 
 apiRouter.post("/api/games", async (req, res) => {
+ 
   try {
-    const {
+    let {
       guesses,
       correctWord,
       wordLength,
       allowRepeating,
       startTime,
-      endTime,
+      endTime
     } = req.body;
 
     let newGame = new gameModel({
@@ -24,7 +25,7 @@ apiRouter.post("/api/games", async (req, res) => {
       correctWord: getRandomWord(wordLength, allowRepeating, words),
       wordLength,
       allowRepeating,
-      startTime,
+      startTime : new Date(),
       endTime,
     });
 
@@ -89,22 +90,11 @@ apiRouter.post("/api/games/:id/highscore", async (req, res) => {
   }
 });
 
-apiRouter.get("/api/games/:id", async (req, res) => {
-  let game = await gameModel.findById(req.params.id);
-  if (game) {
-    res.status(200).send(game);
+apiRouter.get("/api/games/scores", async (req, res) => {
+  let highscore = await highScoreModel.find().populate('game')
+  if (highscore) {
+    res.status(200).send(highscore);
   }
 });
-
-/* export async function getHighScores(req, res) {
-  let highscores = await highScoreModel.find().populate("game");
-  highscores = highscores.map((score) => {
-    return {
-      score,
-      duration: new Date(score.game.endTime) - new Date(score.game.startTime),
-    };
-  });
-  res.render("/highscores", { highscores });
-} */
 
 export default apiRouter;
