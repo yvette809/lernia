@@ -1,15 +1,13 @@
 import React from "react";
 
 import { useState } from "react";
-import { feedback, getWordFeedback } from "../utils/Feedback.js";
+import { getWordFeedback } from "../utils/Feedback.js";
 import { hasSpecialCharsOrSpaces } from "../utils/validation.js";
 import HighScore from "../components/HighScore.js";
 import Modal from "../components/Modal.js";
 
 const GameScreen = ({ game, onReset }) => {
   const { correctWord, _id, wordLength } = game;
-
-  let gameId = _id;
 
   const [gameState, setGameState] = useState("playing");
   const [result, setResult] = useState(null);
@@ -21,6 +19,9 @@ const GameScreen = ({ game, onReset }) => {
   const [guessesLeft, setGuessesLeft] = useState(6);
   /* const [turn, setTurn] = useState(0); */
   const [showModal, setShowModal] = useState(false);
+
+  const [feedbackArray, setFeedbackArray] = useState([]);
+  console.log("feedbackArray", feedbackArray);
 
   console.log("guesses", guesses);
 
@@ -57,7 +58,7 @@ const GameScreen = ({ game, onReset }) => {
       setGuessInput("");
 
       const res = await fetch(
-        `http://localhost:5080/api/games/${gameId}/guesses`,
+        `http://localhost:5080/api/games/${_id}/guesses`,
         {
           method: "post",
           headers: {
@@ -76,6 +77,18 @@ const GameScreen = ({ game, onReset }) => {
         setGuessesLeft(guessesLeft - 1);
         setGameState("fail");
         setIsCorrect(false);
+
+        const feedbackMessage = getWordFeedback(userInput, correctWord);
+        const feedbackWord = feedbackMessage
+          .map((feedback) => feedback.letter)
+          .join(""); // Extract the 'word' property from each object
+        setFeedbackArray((prevFeedbackArray) => [
+          ...prevFeedbackArray,
+          feedbackWord,
+        ]);
+
+        console.log("feedbkmsg", feedbackMessage);
+
         alert(
           `you failed, try again. you have ${guessesLeft - 1} guesses left`
         );
@@ -83,7 +96,6 @@ const GameScreen = ({ game, onReset }) => {
 
       setGuesses(data.guesses);
     }
-    getWordFeedback(userInput, correctWord);
   };
 
   const handleSubmit = async (name) => {
@@ -92,7 +104,7 @@ const GameScreen = ({ game, onReset }) => {
         name,
       };
 
-      await fetch(`http://localhost:5080/api/games/${gameId}/highscore`, {
+      await fetch(`http://localhost:5080/api/games/${_id}/highscore`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",
@@ -126,10 +138,15 @@ const GameScreen = ({ game, onReset }) => {
       <>
         {showModal && (
           <div className="Game">
+            {/*  <h1>You won</h1>
+        <p>The guess word was {correctWord}</p>
+        <p>Guesses: {guesses && guesses.length}</p>
+        <p>Duration:{duration}s</p>
+        <h2>Add to highscore</h2> */}
             <Modal
               isCorrect={isCorrect}
               correctWord={correctWord}
-              guesses={guesses}
+              guesses={guesses && guesses.length}
               duration={duration}
               guessesLeft={guessesLeft}
             />
@@ -163,17 +180,37 @@ const GameScreen = ({ game, onReset }) => {
     );
   }
 
-  if (guessesLeft === 0) {
-    onReset();
+  if (guessesLeft === 0)
     return (
-      <div>
+      <>
+        {showModal && (
+          <div className="Game">
+            <Modal
+              isCorrect={isCorrect}
+              correctWord={correctWord}
+              guesses={guesses && guesses.length}
+              duration={""}
+              guessesLeft={guessesLeft}
+            />
+          </div>
+        )}
+      </>
+      /* <div>
         <p>Game over! you lost. The correct word was</p>
         <p className="correct">{correctWord}</p>
         <p>Guesses: {guesses.length}</p>
-        {/*  <p>Duration:{duration}s</p> */}
-      </div>
+        <p>Duration:{duration}s</p>
+        <a
+          href="/"
+          onClick={(ev) => {
+            ev.preventDefault();
+            onReset();
+          }}
+        >
+          Play again
+        </a>
+      </div> */
     );
-  }
 
   return (
     <>
@@ -186,16 +223,16 @@ const GameScreen = ({ game, onReset }) => {
         onKeyUp={(e) => handleKeyUp(e.code)}
         placeholder="guess a word"
         className="inputText"
+        readOnly={guessInput.length === wordLength}
       />
 
       <button onClick={wordShuffle}>Shuffle word</button>
       {!isCorrect && guessesLeft > 0 && (
         <div>Remaining Guesses: {guessesLeft}</div>
       )}
-      {/* 
-      <ul className="word-feedback">
-        {feedback && feedback.map((feed) => <li>{feed.letter}</li>)}
-      </ul> */}
+
+      {feedbackArray &&
+        feedbackArray.map((message, index) => <p key={index}>{message}</p>)}
     </>
   );
 };
