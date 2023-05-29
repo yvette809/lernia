@@ -1,24 +1,103 @@
-body {
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: darkcyan;
 }
 
-
-ul.word-feedback{
+.container,
+.won-container {
   display: flex;
-  list-style-type: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-ul.word-feedback li{
-  font-size: 2rem;
-  letter-spacing: 2px;
+.game-settings,
+.word-settings,
+.win-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 5px;
 }
+
+.win-info {
+  padding: 5rem;
+ 
+}
+
+.word-settings {
+  width: 50vw;
+  height: 50vh;
+  padding: 0.5rem;
+}
+
+.game-btn,
+.reset-btn {
+  background-color: rgb(10, 131, 131);
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.word-length,
+.allow-repeating {
+  margin-right: 0.5rem;
+}
+
+.word-info {
+  margin-bottom: 0.5rem;
+}
+
+.input-container {
+  display: flex;
+  padding: 2rem;
+  background-color: darkcyan;
+}
+
+.input-container button {
+  width: 50%;
+  padding: 0.4rem;
+  background-color: rgb(79, 138, 138);
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  color: #fff;
+  font-weight: 700;
+}
+.input-container input {
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+}
+
+.word-shuffle {
+  font-weight: 700;
+  letter-spacing: 10px;
+}
+
+.feedback {
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+}
+
+.guesses-left {
+  margin-top: 0.5rem;
+}
+
+
+ 

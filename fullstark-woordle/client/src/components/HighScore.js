@@ -12,7 +12,7 @@ const Highscore = ({ handleSubmit }) => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} >
       <input
         value={name}
         onChange={(e) => setName(e.target.value)}

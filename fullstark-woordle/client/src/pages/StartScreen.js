@@ -1,15 +1,15 @@
-import {  useState } from "react";
+import { useState } from "react";
 
 const StartScreen = ({ onStartGame }) => {
   const [wordLength, setWordLength] = useState(5);
   const [allowRepeating, setAllowRepeating] = useState(true);
 
   return (
-    <div>
+    <div className="container">
       <h1>Wordle Clone</h1>
-      <div>
-        <label>
-          Word length
+      <div className="game-settings">
+        <div className="word-info">
+          <label className="word-length">Word length</label>
           <input
             type="number"
             min="3"
@@ -17,11 +17,9 @@ const StartScreen = ({ onStartGame }) => {
             value={wordLength}
             onChange={(e) => setWordLength(parseInt(e.target.value))}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Allow repeating characters
+        </div>
+        <div>
+          <label className="allow-repeating">Allow repeating characters</label>
           <input
             type="checkbox"
             checked={allowRepeating}
@@ -29,9 +27,14 @@ const StartScreen = ({ onStartGame }) => {
               setAllowRepeating(e.currentTarget.checked);
             }}
           />
-        </label>
+        </div>
+        <button
+          onClick={() => onStartGame(wordLength, allowRepeating)}
+          className="game-btn"
+        >
+          Start game
+        </button>
       </div>
-      <button onClick={() => onStartGame(wordLength, allowRepeating)}>Start game</button>
     </div>
   );
 };
