@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { getWordFeedback } from "../utils/Feedback.js";
-import { hasSpecialCharsOrSpaces } from "../utils/validation.js";
+import { hasSpecialCharsOrSpaces, validateInput } from "../utils/validation.js";
 import HighScore from "../components/HighScore.js";
+import Timer from "../components/Timer.js";
 
 const GameScreen = ({ game, onReset }) => {
-  const { correctWord, _id, wordLength } = game;
+  const { correctWord, _id, wordLength, startTime } = game;
+  let timeInfo;
 
   const [gameState, setGameState] = useState("playing");
   const [result, setResult] = useState(null);
@@ -13,68 +15,14 @@ const GameScreen = ({ game, onReset }) => {
   const [guesses, setGuesses] = useState([]);
   const [randText, setRandText] = useState("");
   const [guessesLeft, setGuessesLeft] = useState(6);
-  const [timer, setTimer] = useState({ hours: 0, minutes: 0, seconds: 0 });
+
   const [feedbackArray, setFeedbackArray] = useState([]);
-
-  useEffect(() => {
-    let intervalId = null;
-
-    if (gameState === "playing") {
-      intervalId = setInterval(() => {
-        setTimer((prevTimer) => {
-          const seconds = prevTimer.seconds + 1;
-          const minutes = prevTimer.minutes + Math.floor(seconds / 60);
-          const hours = prevTimer.hours + Math.floor(minutes / 60);
-
-          return {
-            hours: hours % 24,
-            minutes: minutes % 60,
-            seconds: seconds % 60,
-          };
-        });
-      }, 1000);
-    }
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [gameState]);
-  const formatTimeUnit = (unit) => {
-    return unit.toString().padStart(2, "0");
-  };
-
-  const formattedTime = `${formatTimeUnit(timer.hours)}h:${formatTimeUnit(
-    timer.minutes
-  )}m:${formatTimeUnit(timer.seconds)}s`;
-
-  //input validation
-  function validateInput(currentGuess) {
-    if (currentGuess === "") {
-      alert("Guess field cannot be empty");
-      return;
-    }
-
-    if (currentGuess.length !== wordLength) {
-      alert(`Guess word must be the same length as word length`);
-      return;
-    }
-
-    if (!hasSpecialCharsOrSpaces(currentGuess)) {
-      alert("Guess field cannot contain special characters");
-      return;
-    }
-
-    if (guesses.includes(currentGuess.toUpperCase())) {
-      alert("You have already tried that word");
-      return;
-    }
-  }
 
   const handleKeyUp = async (keyCode) => {
     try {
       let userInput = guessInput.toUpperCase();
       if (keyCode === "Enter") {
-        validateInput(guessInput);
+        validateInput(guessInput, wordLength, guesses);
 
         setGuessInput("");
 
@@ -210,9 +158,11 @@ const GameScreen = ({ game, onReset }) => {
   return (
     <div className="container">
       <div className="word-settings">
-        {gameState === "playing" && (
-          <div className="timer">Timer: {formattedTime}</div>
-        )}
+        {/* {gameState === "playing" && (
+          <div className="timer">Timer: {formattedTime}</div> 
+         
+        )} */}
+        {gameState === "playing" && <Timer gameState={gameState} />}
         <h2 className="word-shuffle">{randText}</h2>
         <div className="input-container">
           <input

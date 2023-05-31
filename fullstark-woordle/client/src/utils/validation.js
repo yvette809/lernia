@@ -9,16 +9,25 @@ export function hasSpecialCharsOrSpaces(str) {
     return false;
   }
 
-  /* //input validation
-  export function validateInput(text) {
-    if (text === "") {
-      alert("input cannot be empty");
+  
+  export function validateInput(currentGuess, wordLength,guesses) {
+    if (currentGuess === "") {
+      alert("Guess field cannot be empty");
+      return;
+    }
 
-      //I will create an alert component to take care of this
-    } else if (text.length < wordLength || text.length > wordLength) {
-      alert(`Input length cannot be less than or greater than ${wordLength}`);
-    } else if (!hasSpecialCharsOrSpaces(text)) {
-      alert("Input cannot contain special chars");
+    if (currentGuess.length !== wordLength) {
+      alert(`Guess word must be the same length as word length`);
+      return;
+    }
+
+    if (!hasSpecialCharsOrSpaces(currentGuess)) {
+      alert("Guess field cannot contain special characters");
+      return;
+    }
+
+    if (guesses.includes(currentGuess.toUpperCase())) {
+      alert("You have already tried that word");
+      return;
     }
   }
- */
