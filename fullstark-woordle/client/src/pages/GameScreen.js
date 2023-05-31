@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getWordFeedback } from "../utils/Feedback.js";
 import { hasSpecialCharsOrSpaces } from "../utils/validation.js";
 import HighScore from "../components/HighScore.js";
@@ -12,9 +12,40 @@ const GameScreen = ({ game, onReset }) => {
   const [guessInput, setGuessInput] = useState("");
   const [guesses, setGuesses] = useState([]);
   const [randText, setRandText] = useState("");
-  const [guessesLeft, setGuessesLeft] = useState(2);
-
+  const [guessesLeft, setGuessesLeft] = useState(6);
+  const [timer, setTimer] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [feedbackArray, setFeedbackArray] = useState([]);
+
+  useEffect(() => {
+    let intervalId = null;
+
+    if (gameState === "playing") {
+      intervalId = setInterval(() => {
+        setTimer((prevTimer) => {
+          const seconds = prevTimer.seconds + 1;
+          const minutes = prevTimer.minutes + Math.floor(seconds / 60);
+          const hours = prevTimer.hours + Math.floor(minutes / 60);
+
+          return {
+            hours: hours % 24,
+            minutes: minutes % 60,
+            seconds: seconds % 60,
+          };
+        });
+      }, 1000);
+    }
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [gameState]);
+  const formatTimeUnit = (unit) => {
+    return unit.toString().padStart(2, "0");
+  };
+
+  const formattedTime = `${formatTimeUnit(timer.hours)}h:${formatTimeUnit(
+    timer.minutes
+  )}m:${formatTimeUnit(timer.seconds)}s`;
 
   //input validation
   function validateInput(currentGuess) {
@@ -59,6 +90,7 @@ const GameScreen = ({ game, onReset }) => {
         );
 
         const data = await res.json();
+        console.log("data", data);
 
         if (data.correct) {
           setIsCorrect(true);
@@ -66,7 +98,7 @@ const GameScreen = ({ game, onReset }) => {
           setGameState("won");
         } else if (!data.incorrect && guessInput !== "") {
           setGuessesLeft(guessesLeft - 1);
-          setGameState("fail");
+
           setIsCorrect(false);
 
           const feedbackMessage = getWordFeedback(userInput, correctWord);
@@ -178,6 +210,9 @@ const GameScreen = ({ game, onReset }) => {
   return (
     <div className="container">
       <div className="word-settings">
+        {gameState === "playing" && (
+          <div className="timer">Timer: {formattedTime}</div>
+        )}
         <h2 className="word-shuffle">{randText}</h2>
         <div className="input-container">
           <input

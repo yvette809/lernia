@@ -31,6 +31,15 @@ body {
   padding: 1.5rem;
   border-radius: 5px;
 }
+.word-settings{
+  position: relative;
+}
+.timer{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-weight: 700;
+}
 
 .win-info {
   padding: 5rem;
