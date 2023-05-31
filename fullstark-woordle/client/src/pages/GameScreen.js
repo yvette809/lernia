@@ -38,7 +38,6 @@ const GameScreen = ({ game, onReset }) => {
         );
 
         const data = await res.json();
-        console.log("data", data);
 
         if (data.correct) {
           setIsCorrect(true);
@@ -158,10 +157,6 @@ const GameScreen = ({ game, onReset }) => {
   return (
     <div className="container">
       <div className="word-settings">
-        {/* {gameState === "playing" && (
-          <div className="timer">Timer: {formattedTime}</div> 
-         
-        )} */}
         {gameState === "playing" && <Timer gameState={gameState} />}
         <h2 className="word-shuffle">{randText}</h2>
         <div className="input-container">
