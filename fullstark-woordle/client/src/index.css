@@ -98,8 +98,8 @@ body {
 }
 
 .feedback {
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-weight: 300;
+  letter-spacing: 1px;
   margin-top: 0.5rem;
   padding: 0.5rem;
 }
