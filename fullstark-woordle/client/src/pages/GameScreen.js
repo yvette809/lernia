@@ -47,10 +47,8 @@ const GameScreen = ({ game, onReset }) => {
           setGuessesLeft(guessesLeft - 1);
 
           setIsCorrect(false);
-         let feedback = getWordFeedback(userInput,correctWord)
-         console.log("word feedback", feedback) 
-        //setFeedbackArray(prevFeedbackArray =>[...prevFeedbackArray, feedback])
-        setFeedbackArray(feedback)
+          let feedback = getWordFeedback(userInput, correctWord);
+          setFeedbackArray(feedback);
           alert(
             `you failed, try again. you have ${guessesLeft - 1} guesses left`
           );
@@ -82,7 +80,7 @@ const GameScreen = ({ game, onReset }) => {
     }
   };
 
-  console.log('feedarray', feedbackArray)
+  console.log("feedarray", feedbackArray);
 
   // word shuffle
 
@@ -173,7 +171,22 @@ const GameScreen = ({ game, onReset }) => {
         )}
         <h3 className="feedback">
           {feedbackArray &&
-            feedbackArray.map((message, index) => <p key={index}>{message.letter} - {message.result}</p>)}
+            feedbackArray.map((message, index) => (
+              <p
+                key={index}
+                className={
+                  message.result === "correct"
+                    ? "correct"
+                    : message.result === "incorrect"
+                    ? "incorrect"
+                    : message.result === "misplaced"
+                    ? "misplaced"
+                    : ""
+                }
+              >
+                {message.letter} - {message.result}
+              </p>
+            ))}
         </h3>
       </div>
     </div>

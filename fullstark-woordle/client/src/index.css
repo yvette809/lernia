@@ -104,6 +104,16 @@ body {
   padding: 0.5rem;
 }
 
+.correct{
+  color: green;
+}
+.incorrect{
+  color: red;
+}
+.misplaced{
+  color: aqua;
+}
+
 .guesses-left {
   margin-top: 0.5rem;
 }
