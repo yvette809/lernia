@@ -5,11 +5,11 @@ import { gameModel } from "../models/gameModel.js";
 import { getRandomWord } from "../utils/getRandomWord.js";
 import { highScoreModel } from "../models/highScoreModel.js";
 import { words } from "../utils/words.js";
+import { getWordFeedback } from "../utils/feedback.js";
 
 //post games
 
 apiRouter.post("/api/games", async (req, res) => {
- 
   try {
     let {
       guesses,
@@ -17,7 +17,7 @@ apiRouter.post("/api/games", async (req, res) => {
       wordLength,
       allowRepeating,
       startTime,
-      endTime
+      endTime,
     } = req.body;
 
     let newGame = new gameModel({
@@ -25,7 +25,7 @@ apiRouter.post("/api/games", async (req, res) => {
       correctWord: getRandomWord(wordLength, allowRepeating, words),
       wordLength,
       allowRepeating,
-      startTime : new Date(),
+      startTime: new Date(),
       endTime,
     });
 
@@ -53,12 +53,14 @@ apiRouter.post("/api/games/:id/guesses", async (req, res) => {
       res.status(201).json({
         /*  guesses: game.guesses, */
         result: game,
+        feedback: getWordFeedback(guess, game.correctWord),
         correct: true,
       });
     } else {
       await game.save();
       res.status(201).json({
         guesses: game.guesses,
+        feedback: getWordFeedback(guess, game.correctWord),
         correct: false,
       });
     }
@@ -91,7 +93,7 @@ apiRouter.post("/api/games/:id/highscore", async (req, res) => {
 });
 
 apiRouter.get("/api/games/scores", async (req, res) => {
-  let highscore = await highScoreModel.find().populate('game')
+  let highscore = await highScoreModel.find().populate("game");
   if (highscore) {
     res.status(200).send(highscore);
   }
