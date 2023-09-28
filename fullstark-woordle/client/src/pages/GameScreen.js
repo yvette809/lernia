@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { getWordFeedback } from "../utils/Feedback.js";
 import { hasSpecialCharsOrSpaces, validateInput } from "../utils/validation.js";
 import HighScore from "../components/HighScore.js";
 import Timer from "../components/Timer.js";
@@ -45,9 +44,8 @@ const GameScreen = ({ game, onReset }) => {
           setGameState("won");
         } else if (!data.incorrect && guessInput !== "") {
           setGuessesLeft(guessesLeft - 1);
-
           setIsCorrect(false);
-          let feedback = getWordFeedback(userInput, correctWord);
+          const feedback = data.feedback;
           setFeedbackArray(feedback);
           alert(
             `you failed, try again. you have ${guessesLeft - 1} guesses left`
